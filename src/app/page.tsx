@@ -1,6 +1,4 @@
-import Head from "next/head";
 import NavBarMain from "@/components/common/topNavMain";
-import Link from "next/link";
 import type { Metadata } from "next"; // Metadata 타입 임포트
 
 // Metadata 객체 export
