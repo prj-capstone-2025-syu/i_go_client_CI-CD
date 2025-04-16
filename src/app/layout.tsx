@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${noto.variable} antialiased`}>
+      <body className={` antialiased`}>
         <div className="w-full h-[100dvh] bg-[#dfdfdf]">
           <style jsx>{`
             html {
