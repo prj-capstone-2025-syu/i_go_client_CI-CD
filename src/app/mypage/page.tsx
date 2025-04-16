@@ -16,7 +16,7 @@ export default function Mypage() {
   return (
     <div>
       <div>
-        <NavBar title="설정" link="settings"></NavBar>
+        <NavBar title="마이페이지" link="settings"></NavBar>
       </div>
     </div>
   );
