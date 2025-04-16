@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 
-const NavBar = ({ title, link }) => {
+interface NavBarProps {
+  title: string;
+  link: string; 
+}
+
+const NavBar = ({ title, link }: NavBarProps) => {
   return (
     <div className="flex items-center justify-between w-full py-[14px] max-h-[48px] bg-[#fff] shadow-sm px-[20px]">
       <Link

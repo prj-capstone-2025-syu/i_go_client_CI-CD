@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
+interface NavBarProps {
+  link: string; 
+}
 
-const NavBar = ({ link }) => {
+const NavBar = ({  link }: NavBarProps) => {
   return (
     <div className="flex items-center justify-between w-full py-[14px] max-h-[48px] bg-[#fff] shadow-sm px-[20px]">
       <Link href="/" className="hover:opacity-[0.75] btn-history-back">
