@@ -7,7 +7,7 @@ interface NavBarProps {
 
 const NavBar = ({ link }: NavBarProps) => {
   return (
-    <div className="fixed top-0 left-0 bg-[#fff] flex items-center justify-between w-full py-[14px] max-h-[48px] bg-[#fff] shadow-sm px-[20px]">
+    <div className="absolute top-0 left-0 bg-[#fff] flex items-center justify-between w-full py-[14px] max-h-[48px] bg-[#fff] shadow-sm px-[20px]">
       <Link href="/" className="hover:opacity-[0.75] btn-history-back">
         <p className="text-[16px] tracking-[-0.6px] text-[#1f1f1f] font-[500]">
           아이고 로고

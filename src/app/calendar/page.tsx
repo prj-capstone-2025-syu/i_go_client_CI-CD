@@ -29,20 +29,22 @@ export default function Calendar() {
   ];
 
   return (
-    <div>
-      <div>
-        <NavBar title="캘린더" link="#"></NavBar>
-        <div className="p-[20px]">
-          <FullCalendar
-            initialView="dayGridMonth"
-            plugins={[dayGridPlugin]}
-            events={events}
-          />
-          <FullCalendar
-            plugins={[listPlugin]}
-            initialView="listWeek"
-            events={events}
-          />
+    <div className="flex flex-col w-full h-full">
+      <NavBar title="캘린더" link="#" />
+      <div className="w-full max-h-full overflow-y-auto">
+        <div className="w-full max-h-full overflow-y-auto">
+          <div className="p-[20px] h-full">
+            <FullCalendar
+              initialView="dayGridMonth"
+              plugins={[dayGridPlugin]}
+              events={events}
+            />
+            <FullCalendar
+              plugins={[listPlugin]}
+              initialView="listWeek"
+              events={events}
+            />
+          </div>
         </div>
       </div>
     </div>
