@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-const NavBar = ({ title, link }) => {
+const NavBar = ({ link }) => {
   return (
     <div className="flex items-center justify-between w-full py-[14px] max-h-[48px] bg-[#fff] shadow-sm px-[20px]">
       <Link href="/" className="hover:opacity-[0.75] btn-history-back">

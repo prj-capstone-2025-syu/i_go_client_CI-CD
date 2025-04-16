@@ -1,5 +1,4 @@
 import Head from "next/head";
-import React, { useState, useEffect, useRef, useCallback } from "react";
 import NavBarMain from "@/components/common/topNavMain";
 import Link from "next/link";
 import type { Metadata } from "next"; // Metadata 타입 임포트
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div>
-      <NavBarMain title="홈화면" link="#"></NavBarMain>
+      <NavBarMain link="#"></NavBarMain>
     </div>
   );
 }

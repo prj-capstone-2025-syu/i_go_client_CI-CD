@@ -2,12 +2,6 @@
 
 import Link from "next/link";
 
-const footerLinks = [
-  {
-    title: "Prologue",
-    link: "/about_I_GO",
-  },
-];
 
 export default function QuickNav() {
   return (

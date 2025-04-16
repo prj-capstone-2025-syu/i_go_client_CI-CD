@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
 import NavBar from "@/components/common/topNav";
-import Link from "next/link";
 import type { Metadata } from "next"; // Metadata 타입 임포트
 
 // Metadata 객체 export
