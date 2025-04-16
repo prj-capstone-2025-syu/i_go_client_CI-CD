@@ -3,6 +3,10 @@ import BottomNav from "@/components/common/bottomNav";
 import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 
+const noto = Noto_Sans_KR({
+  subsets: ["latin"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -10,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={` antialiased`}>
+      <body className={`${noto.className} antialiased`}>
         <div className="w-full h-[100dvh] bg-[#dfdfdf]">
           <style jsx>{`
             html {

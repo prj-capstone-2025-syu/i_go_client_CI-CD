@@ -94,7 +94,7 @@ export default function Home() {
               className="flex flex-col items-center justify-center gap-y-[8px] w-full bg-[#fff] sm:py-[20px] border-[1px] border-[transparent] hover:border-[#0B57E3]"
             >
               <div className="w-full h-auto aspect-square bg-[#dfdfdf]"></div>
-              <p className="text-[#1A1A1A] text-[13px] lg:text-[15px] font-[500] tracking-[-0.4px] px-[5px] text-center">
+              <p className="text-[#1A1A1A] text-[13px] lg:text-[14px] line-clamp-1 font-[500] tracking-[-0.4px] px-[5px] text-center">
                 카카오맵
               </p>
             </a>
@@ -104,7 +104,7 @@ export default function Home() {
               className="flex flex-col items-center justify-center gap-y-[8px] w-full bg-[#fff] sm:py-[20px] border-[1px] border-[transparent] hover:border-[#0B57E3]"
             >
               <div className="w-full h-auto aspect-square bg-[#dfdfdf]"></div>
-              <p className="text-[#1A1A1A] text-[13px] lg:text-[15px] font-[500] tracking-[-0.4px] px-[5px] text-center">
+              <p className="text-[#1A1A1A] text-[13px] lg:text-[14px] line-clamp-1 font-[500] tracking-[-0.4px] px-[5px] text-center">
                 티맵
               </p>
             </a>
@@ -114,7 +114,7 @@ export default function Home() {
               className="flex flex-col items-center justify-center gap-y-[8px] w-full bg-[#fff] sm:py-[20px] border-[1px] border-[transparent] hover:border-[#0B57E3]"
             >
               <div className="w-full h-auto aspect-square bg-[#dfdfdf]"></div>
-              <p className="text-[#1A1A1A] text-[13px] lg:text-[15px] font-[500] tracking-[-0.4px] px-[5px] text-center">
+              <p className="text-[#1A1A1A] text-[13px] lg:text-[14px] line-clamp-1 font-[500] tracking-[-0.4px] px-[5px] text-center">
                 카카오네비
               </p>
             </a>
@@ -124,7 +124,7 @@ export default function Home() {
               className="flex flex-col items-center justify-center gap-y-[8px] w-full bg-[#fff] sm:py-[20px] border-[1px] border-[transparent] hover:border-[#0B57E3]"
             >
               <div className="w-full h-auto aspect-square bg-[#dfdfdf]"></div>
-              <p className="text-[#1A1A1A] text-[13px] lg:text-[15px] font-[500] tracking-[-0.4px] px-[5px] text-center">
+              <p className="text-[#1A1A1A] text-[13px] lg:text-[14px] line-clamp-1 font-[500] tracking-[-0.4px] px-[5px] text-center">
                 구글맵
               </p>
             </a>
