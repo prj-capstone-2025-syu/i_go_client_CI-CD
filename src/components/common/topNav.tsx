@@ -4,12 +4,12 @@ import Link from "next/link";
 
 interface NavBarProps {
   title: string;
-  link: string; 
+  link: string;
 }
 
 const NavBar = ({ title, link }: NavBarProps) => {
   return (
-    <div className="flex items-center justify-between w-full py-[14px] max-h-[48px] bg-[#fff] shadow-sm px-[20px]">
+    <div className="fixed top-0 left-0 bg-[#fff] flex items-center justify-between w-full py-[14px] max-h-[48px] bg-[#fff] shadow-sm px-[20px]">
       <Link
         onClick={() => {
           history.back();
