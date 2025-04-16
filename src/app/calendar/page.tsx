@@ -1,6 +1,5 @@
 "use client";
 import NavBar from "@/components/common/topNav";
-import type { Metadata } from "next"; // Metadata 타입 임포트
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
@@ -8,15 +7,6 @@ import listPlugin from "@fullcalendar/list";
 // Metadata 객체 export
 
 export default function Calendar() {
-  const metadata: Metadata = {
-    title: "아이고 - AI 지각방지 솔루션",
-    description: "아이고 - Ai 지각방지 솔루션",
-    icons: {
-      icon: "/imgs/favi-icon.png",
-      shortcut: "/imgs/favi-icon.png",
-      apple: "/imgs/favi-icon.png",
-    },
-  };
   const events = [
     {
       title: "아침 먹기",
