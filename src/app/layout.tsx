@@ -26,7 +26,7 @@ export default function RootLayout({
           `}</style>
           <div
             id="layout-wrapper"
-            className="relative h-[100vh] lg:w-[95%] w-full lg:max-w-[450px] flex flex-col items-center justify-between font-custom duration-500 layout-load preload lg:ml-[50%] mx-auto"
+            className="relative h-full lg:w-[95%] w-full lg:max-w-[450px] flex flex-col items-center justify-between font-custom duration-500 layout-load preload lg:ml-[50%] mx-auto"
             draggableata-aos="fade"
             data-aos-duration="50"
             data-aos-once="true"
