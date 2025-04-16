@@ -31,7 +31,7 @@ export default function RootLayout({
             data-aos-duration="50"
             data-aos-once="true"
           >
-            <main className="main-wrapper w-full h-[calc(100%-68px)] shadow-xl bg-[#fff]">
+            <main className="relative main-wrapper w-full h-[calc(100%-68px)] overflow-y-auto shadow-xl bg-[#fff] pt-[48px]">
               {children}
             </main>
             <BottomNav />
