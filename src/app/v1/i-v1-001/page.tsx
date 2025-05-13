@@ -1,5 +1,4 @@
 "use client";
-import NavBar from "@/components/common/topNav";
 import "/src/app/custom.css";
 
 export default function Mypage() {
