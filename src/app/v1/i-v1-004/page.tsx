@@ -3,8 +3,24 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className=" flex flex-col w-full h-full">
       <NavBarMain link="/mypage"></NavBarMain>
+      <div className="absolute z-[99] w-full h-[100dvh] bg-[rgba(217,217,217,0.85)]"></div>
+      <div
+        className="absolute left-[50%] top-[55%] translate-x-[-50%] translate-y-[-50%] w-[85%] max-w-[335px] bg-[#fff] p-[20px] z-[100] rounded-[8px] shadow-md
+        "
+      >
+        <p className="text-[18px] text-[#5C5C5C] font-[400] text-center">
+          <span className="font-[700]">머리말리기</span> 루틴 시간입니다.
+        </p>
+        <div className="my-[10px] w-full h-[1px] bg-[#dfdfdf]"></div>
+        <Link
+          href="/"
+          className="text-[#383838] text-[16px] font-[500] tracking-[-0.8px] leading-[155%] line-clamp-1 text-center"
+        >
+          확인
+        </Link>
+      </div>
       <div className="w-full max-h-full overflow-y-auto">
         <div className="flex flex-col items-center justify-start p-[20px] w-full h-full ">
           {/* 프롬프트 입력창 */}

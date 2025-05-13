@@ -1,10 +1,31 @@
-import NavBarMain from "@/components/common/topNavMain";
+"use client";
+import NavBar from "@/components/common/topNav";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="flex flex-col w-full h-full">
-      <NavBarMain link="/mypage"></NavBarMain>
+      <NavBar title="일정상세" link="/mypage"></NavBar>
+      <div className="absolute bottom-[0px] left-[0px]  grid grid-cols-2 w-full bg-[#fff] p-[12px] gap-[12px]">
+        <button
+          className="hover:opacity-[0.7] cursor-pointer py-[10px] px-[5px] bg-[#fff] border-[1px] border-[#01274F] rounded-[7px] text-[#01274F] text-[15px] tracking-[-0.6px] font-[500]"
+          onClick={() => {
+            location.href = "#";
+          }}
+          type="button"
+        >
+          일정 삭제
+        </button>
+        <button
+          className="hover:opacity-[0.7] cursor-pointer py-[10px] px-[5px] bg-[#01274F] border-[1px] border-[#01274F] rounded-[7px] text-[#fff] text-[15px] tracking-[-0.6px] font-[500]"
+          onClick={() => {
+            location.href = "#";
+          }}
+          type="button"
+        >
+          일정 수정
+        </button>
+      </div>
       <div className="w-full max-h-full overflow-y-auto">
         <div className="flex flex-col items-center justify-start p-[20px] w-full h-full ">
           {/* 프롬프트 입력창 */}
@@ -33,12 +54,7 @@ export default function Home() {
           {/* 진행중인 일정 */}
           <div className="flex justify-between items-end w-full mb-[8px] px-[5px]">
             <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">
-              진행중인 일정
-            </p>
-            <p>
-              <span className="schedule-status text-[#ff2f01] text-[16px] font-[600] tracking-[-0.4px]">
-                헉! 지각입니다!!
-              </span>
+              2025년 5월 28일
             </p>
           </div>
           <div className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]">
@@ -226,139 +242,6 @@ export default function Home() {
               <p className="text-[#383838] text-[14px] tracking-[-0.2px] font-[400]">
                 TMAP 빠른 길찾기
               </p>
-            </Link>
-          </div>
-
-          {/* 다가오는 일정 */}
-          <div className="flex justify-between items-end w-full mb-[8px] px-[5px]">
-            <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">
-              다가오는 일정
-            </p>
-            <Link href="/calendar" className="flex items-center gap-x-[2px]">
-              <p className="text-[#01274F] text-[14px] font-[400] tracking-[-0.4px] leading-[110%]">
-                더보기
-              </p>
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 22 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 8.06675V11.0001M11 11.0001V13.9334M11 11.0001H13.9333M11 11.0001L8.06665 11.0001M3.66666 15.5834C3.66665 17.1022 4.89787 18.3334 6.41666 18.3334H15.5833C17.1021 18.3334 18.3333 17.1022 18.3333 15.5834V6.41675C18.3333 4.89797 17.1021 3.66675 15.5833 3.66675H6.41666C4.89788 3.66675 3.66666 4.89797 3.66666 6.41675L3.66666 15.5834Z"
-                  stroke="#01274F"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </Link>
-          </div>
-          <div className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]">
-            <Link
-              href="#"
-              className="flex items-start  flex-col  justify-between gap-x-[10px] gap-y-[4px] w-full bg-[#fff] border-b-[1px] border-[#dfdfdf] py-[7px] px-[10px] lg:px-[20px] hover:bg-[#dfdfdf] last:!border-[0px] first:!pt-[0px] last:!pb-[0px]"
-            >
-              <p className="w-full text-[#383838] text-[13px] line-clamp-1 pr-[15px]">
-                제목은 첫줄까지만 표시됩니다. 제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.
-              </p>
-              <div className="flex flex-row gap-x-[3px] md:gap-x-[15px] xl:gap-x-[65px]">
-                <p className="w-full text-[#777] text-[13px] pr-[5px] min-w-[68px] text-left md:text-center whitespace-nowrap">
-                  YYYY-MM-DD TT:MM
-                </p>
-              </div>
-            </Link>
-            <Link
-              href="#"
-              className="flex items-start  flex-col  justify-between gap-x-[10px] gap-y-[4px] w-full bg-[#fff] border-b-[1px] border-[#dfdfdf] py-[7px] px-[10px] lg:px-[20px] hover:bg-[#dfdfdf] last:!border-[0px] first:!pt-[0px] last:!pb-[0px]"
-            >
-              <p className="w-full text-[#383838] text-[13px] line-clamp-1 pr-[15px]">
-                제목은 첫줄까지만 표시됩니다. 제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.
-              </p>
-              <div className="flex flex-row gap-x-[3px] md:gap-x-[15px] xl:gap-x-[65px]">
-                <p className="w-full text-[#777] text-[13px] pr-[5px] min-w-[68px] text-left md:text-center whitespace-nowrap">
-                  YYYY-MM-DD TT:MM
-                </p>
-              </div>
-            </Link>
-            <Link
-              href="#"
-              className="flex items-start  flex-col  justify-between gap-x-[10px] gap-y-[4px] w-full bg-[#fff] border-b-[1px] border-[#dfdfdf] py-[7px] px-[10px] lg:px-[20px] hover:bg-[#dfdfdf] last:!border-[0px] first:!pt-[0px] last:!pb-[0px]"
-            >
-              <p className="w-full text-[#383838] text-[13px] line-clamp-1 pr-[15px]">
-                제목은 첫줄까지만 표시됩니다. 제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.
-              </p>
-              <div className="flex flex-row gap-x-[3px] md:gap-x-[15px] xl:gap-x-[65px]">
-                <p className="w-full text-[#777] text-[13px] pr-[5px] min-w-[68px] text-left md:text-center whitespace-nowrap">
-                  YYYY-MM-DD TT:MM
-                </p>
-              </div>
-            </Link>
-          </div>
-
-          {/* 날씨 */}
-          <div className="flex justify-between items-end w-full mb-[8px] px-[5px]">
-            <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">
-              날씨
-            </p>
-            <Link
-              href="https://www.weather.go.kr/w/index.do"
-              target="_blank"
-              className="flex items-center gap-x-[2px]"
-            >
-              <p className="text-[#01274F] text-[14px] font-[400] tracking-[-0.4px] leading-[110%]">
-                더보기
-              </p>
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 22 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 8.06675V11.0001M11 11.0001V13.9334M11 11.0001H13.9333M11 11.0001L8.06665 11.0001M3.66666 15.5834C3.66665 17.1022 4.89787 18.3334 6.41666 18.3334H15.5833C17.1021 18.3334 18.3333 17.1022 18.3333 15.5834V6.41675C18.3333 4.89797 17.1021 3.66675 15.5833 3.66675H6.41666C4.89788 3.66675 3.66666 4.89797 3.66666 6.41675L3.66666 15.5834Z"
-                  stroke="#01274F"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </Link>
-          </div>
-          <div className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]">
-            <Link
-              href="#"
-              className="flex items-start  flex-col  justify-between gap-x-[10px] gap-y-[4px] w-full bg-[#fff] border-b-[1px] border-[#dfdfdf] py-[7px] px-[10px] lg:px-[20px] hover:bg-[#dfdfdf] last:!border-[0px] first:!pt-[0px] last:!pb-[0px]"
-            >
-              <p className="w-full text-[#383838] text-[13px] line-clamp-1 pr-[15px]">
-                제목은 첫줄까지만 표시됩니다. 제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.
-              </p>
-              <div className="flex flex-row gap-x-[3px] md:gap-x-[15px] xl:gap-x-[65px]">
-                <p className="w-full text-[#777] text-[13px] pr-[5px] min-w-[68px] text-left md:text-center whitespace-nowrap">
-                  YYYY-MM-DD TT:MM
-                </p>
-              </div>
-            </Link>
-            <Link
-              href="#"
-              className="flex items-start  flex-col  justify-between gap-x-[10px] gap-y-[4px] w-full bg-[#fff] border-b-[1px] border-[#dfdfdf] py-[7px] px-[10px] lg:px-[20px] hover:bg-[#dfdfdf] last:!border-[0px] first:!pt-[0px] last:!pb-[0px]"
-            >
-              <p className="w-full text-[#383838] text-[13px] line-clamp-1 pr-[15px]">
-                제목은 첫줄까지만 표시됩니다. 제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.
-              </p>
-              <div className="flex flex-row gap-x-[3px] md:gap-x-[15px] xl:gap-x-[65px]">
-                <p className="w-full text-[#777] text-[13px] pr-[5px] min-w-[68px] text-left md:text-center whitespace-nowrap">
-                  YYYY-MM-DD TT:MM
-                </p>
-              </div>
             </Link>
           </div>
         </div>

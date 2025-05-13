@@ -9,7 +9,7 @@ export default function Home() {
         <div className="flex flex-col items-center justify-start p-[20px] w-full h-full gap-y-[15px]">
           <Link
             className="hover:opacity-[0.7] border-[1px] p-[20px] border-[#dfdfdf] rounded-[6px] bg-[#fff] w-full shadow-sm flex items-center jutify-start gap-x-[12px]"
-            href="mypage-edit"
+            href="#"
           >
             <div className="w-[80px] aspect-square rounded-full bg-[#dfdfdf]"></div>
             <div className="w-full flex flex-col gap-y-[1px]">
