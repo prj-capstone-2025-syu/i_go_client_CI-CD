@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex flex-col w-full h-full">
       <NavBarMain link="/mypage"></NavBarMain>
       <div className="w-full max-h-full overflow-y-auto">
-        <div className="flex flex-col items-center justify-start p-[20px] w-full h-full ">
+        <div className="flex flex-col items-center justify-start p-[20px] w-full h-auto">
           {/* 프롬프트 입력창 */}
           <div className="relative w-full 2xl:max-w-[781px] mb-[22px]">
             <input
