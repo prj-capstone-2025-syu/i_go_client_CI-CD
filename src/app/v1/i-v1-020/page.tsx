@@ -3,12 +3,28 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className=" flex flex-col w-full h-full">
       <NavBarMain link="/mypage"></NavBarMain>
+      <div className="absolute z-[99] w-full h-[100dvh] bg-[rgba(217,217,217,0.85)]"></div>
+      <div
+        className="absolute left-[50%] top-[55%] translate-x-[-50%] translate-y-[-50%] w-[85%] max-w-[335px] bg-[#fff] p-[20px] z-[100] rounded-[8px] shadow-md
+        "
+      >
+        <p className="text-[18px] text-[#5C5C5C] font-[400] text-center">
+          <span className="font-[700]">머리말리기</span> 루틴 시간입니다.
+        </p>
+        <div className="my-[10px] w-full h-[1px] bg-[#dfdfdf]"></div>
+        <Link
+          href="/"
+          className="text-[#383838] text-[16px] font-[500] tracking-[-0.8px] leading-[155%] line-clamp-1 text-center"
+        >
+          확인
+        </Link>
+      </div>
       <div className="w-full max-h-full overflow-y-auto">
         <div className="flex flex-col items-center justify-start p-[20px] w-full h-auto">
           {/* 프롬프트 입력창 */}
-          <form className="relative w-full 2xl:max-w-[781px] mb-[15px]">
+          <div className="relative w-full 2xl:max-w-[781px] mb-[22px]">
             <input
               type="text"
               className="bg-[#fff] !outline-none border-[1px] border-[#DFDFDF] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] rounded-[6px] pr-[38px] pl-[15px] py-[12px] w-full font-[400] text-[15px] leading-[20px] text-[#383838] placeholder:!text-[#949494] focus:border-[#01274F]"
@@ -29,7 +45,7 @@ export default function Home() {
                 </svg>
               </button>
             </div>
-          </form>
+          </div>
           {/* 진행중인 일정 */}
           <div className="flex justify-between items-end w-full mb-[8px] px-[5px]">
             <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">

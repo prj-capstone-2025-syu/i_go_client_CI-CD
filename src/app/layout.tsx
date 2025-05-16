@@ -35,7 +35,7 @@ export default function RootLayout({
             data-aos-duration="50"
             data-aos-once="true"
           >
-            <main className="relative main-wrapper w-full h-[calc(100%-68px)]  shadow-xl bg-[#f5f6f7] pt-[48px]">
+            <main className="text-[#383838] relative main-wrapper w-full h-[calc(100%-68px)]  shadow-xl bg-[#f5f6f7] pt-[48px]">
               {children}
             </main>
             <BottomNav />

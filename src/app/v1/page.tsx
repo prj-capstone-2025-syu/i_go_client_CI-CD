@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 export default function Home() {
-  const screenNumbers = Array.from({ length: 15 }, (_, i) => i + 1);
+  const screenNumbers = Array.from({ length: 26 }, (_, i) => i + 1);
 
   return (
     <div className="flex flex-col w-full h-full px-[15px]">

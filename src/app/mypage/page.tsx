@@ -27,7 +27,7 @@ export default function Home() {
           </Link>
           <Link
             className="hover:opacity-[0.7] border-[1px] p-[20px] border-[#dfdfdf] rounded-[6px] bg-[#fff] w-full shadow-sm flex justify-between items-center"
-            href="#"
+            href="/mypage/routine"
           >
             <p className="text-[18px] font-[500] text-[#01274F] leading-[130%] line-clamp-1">
               나의 루틴 설정하기
