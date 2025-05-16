@@ -402,7 +402,6 @@ interface MessageItemProps {
 }
 
 const MessageItem: React.FC<MessageItemProps> = ({ message }) => {
-  const alignmentClass = message.isSenderMe ? "justify-end" : "flex-row"; // flex-row for sender for avatar first
   const bubbleOrderClass = message.isSenderMe
     ? "order-1 ml-[8px]"
     : "order-2 mr-[8px]"; // Adjusted for avatar logic
@@ -572,11 +571,6 @@ const ChatInterface = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const messageAreaRef = useRef<HTMLDivElement>(null);
 
-  const dummyUser1: User = {
-    name: "Design Team",
-    avatarUrl:
-      "https://images.unsplash.com/photo-1573867639040-6dd25fa5f597?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  };
   const dummyUser2: User = {
     name: "Ahmed Ali",
     avatarUrl:

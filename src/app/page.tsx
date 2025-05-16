@@ -1,18 +1,38 @@
-import NavBarMain from "@/components/common/topNavMain";
-import Link from "next/link";
+"use client"; // 상태(useState)와 라우터(useRouter)를 사용하므로 클라이언트 컴포넌트로 명시합니다.
+
+import React, { useState } from "react";
+import NavBarMain from "@/components/common/topNavMain"; // 기존 import 유지
+import Link from "next/link"; // 기존 import 유지
+import { useRouter } from "next/navigation"; // App Router의 useRouter 사용
 
 export default function Home() {
+  const [keyword, setKeyword] = useState("");
+  const router = useRouter();
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // 기본 폼 제출 동작 방지
+    if (keyword.trim()) {
+      // /chat 페이지로 이동하면서 keyword를 쿼리 파라미터로 전달
+      router.push(`/chat?keyword=${encodeURIComponent(keyword.trim())}`);
+    }
+  };
+
   return (
     <div className="flex flex-col w-full h-full">
       <NavBarMain link="/mypage"></NavBarMain>
       <div className="w-full max-h-full overflow-y-auto">
         <div className="flex flex-col items-center justify-start p-[20px] w-full h-auto">
           {/* 프롬프트 입력창 */}
-          <form className="relative w-full 2xl:max-w-[781px] mb-[15px]">
+          <form
+            className="relative w-full 2xl:max-w-[781px] mb-[15px]"
+            onSubmit={handleSearchSubmit}
+          >
             <input
               type="text"
               className="bg-[#fff] !outline-none border-[1px] border-[#DFDFDF] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] rounded-[6px] pr-[38px] pl-[15px] py-[12px] w-full font-[400] text-[15px] leading-[20px] text-[#383838] placeholder:!text-[#949494] focus:border-[#01274F]"
               placeholder="아이고 AI - 무엇을 도와드릴까요?"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)} // 입력 값 상태에 저장
             />
             <div className="absolute flex right-[11px] !top-[50%] !translate-y-[-50%]">
               <button className="p-[4px]" type="submit">
@@ -30,7 +50,8 @@ export default function Home() {
               </button>
             </div>
           </form>
-          {/* 진행중인 일정 */}
+          {/* 진행중인 일정, 다가오는 일정, 날씨 등 나머지 UI 코드... */}
+          {/* ... (사용자님이 제공해주신 나머지 Home 페이지 코드가 여기에 위치합니다) ... */}
           <div className="flex justify-between items-end w-full mb-[8px] px-[5px]">
             <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">
               진행중인 일정
