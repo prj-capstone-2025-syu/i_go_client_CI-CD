@@ -1,8 +1,9 @@
-// app/page.tsx 또는 해당 Home 컴포넌트가 위치한 파일 경로
-"use client"; // ChatInterface 및 하위 컴포넌트들이 상태와 이벤트를 사용하므로 최상위에 명시
+"use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import NavBarMain from "@/components/common/topNavMain"; // 사용자 제공 경로
+import React, { useState, useEffect, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation"; // App Router에서 URL 파라미터를 읽기 위함
+import NavBarMain from "@/components/common/topNavMain"; // 필요하다면 NavBarMain을 여기에 추가
+
 // --- 아이콘 컴포넌트 정의 ---
 interface IconProps extends React.SVGProps<SVGSVGElement> {}
 
@@ -23,7 +24,6 @@ const ChevronLeftIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const SearchIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,6 @@ const SearchIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const DotsVerticalIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +58,6 @@ const DotsVerticalIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const ProfileInformationIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +75,6 @@ const ProfileInformationIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const VoiceCallIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +92,6 @@ const VoiceCallIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const SharedMediaIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +109,6 @@ const SharedMediaIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const BlockContactIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +126,6 @@ const BlockContactIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const AttachmentIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +143,6 @@ const AttachmentIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const EmojiIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +160,6 @@ const EmojiIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const MicrophoneIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +177,6 @@ const MicrophoneIcon: React.FC<IconProps> = (props) => (
     ></path>
   </svg>
 );
-
 const SendIcon: React.FC<IconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -212,7 +203,6 @@ interface User {
   lastSeen?: string;
   isOnline?: boolean;
 }
-
 interface Message {
   id: string;
   text: string;
@@ -229,7 +219,7 @@ interface ChatHeaderProps {
   onBack?: () => void;
   onSearch?: () => void;
   onMenuToggle?: () => void;
-  isMenuOpen?: boolean; // 메뉴 상태를 받을 수 있도록 추가
+  isMenuOpen?: boolean;
 }
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({
@@ -244,61 +234,67 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
 }) => {
   const displayName = groupName || participant?.name || "Chat";
   const avatarUrl =
-    groupAvatarUrl ||
-    participant?.avatarUrl ||
-    "https://via.placeholder.com/150";
-
+    groupAvatarUrl || participant?.avatarUrl || "/icon/aigo-ai-logo.svg"; // AI 로고 기본값
   return (
-    <div className="w-full min-h-[5.25rem] px-5 py-6 border-b !border-[#01274f]">
+    <div className="w-full min-h-[5.25rem] px-5 py-6 border-b !border-[#DFDFDF] bg-white">
+      {" "}
+      {/* 배경색 및 테두리 수정 */}
       <div className="w-full flex justify-center items-center">
         <div className="group mr-4 md:hidden">
           <button
             onClick={onBack}
-            className="group flex justify-center items-center rounded-full outline-none focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 focus:bg-gray-50 dark:focus:bg-gray-600 transition-all duration-200 w-7 h-7"
+            className="group flex justify-center items-center rounded-full outline-none focus:outline-none hover:bg-gray-100 focus:bg-gray-100 transition-all duration-200 w-7 h-7"
             title="Close conversation"
             aria-label="Close conversation"
           >
-            <ChevronLeftIcon className="w-[1.25rem] h-[1.25rem] text-gray-300 group-hover:text-indigo-300" />
+            <ChevronLeftIcon className="w-[1.25rem] h-[1.25rem] text-gray-400 group-hover:text-indigo-500" />
           </button>
         </div>
-        <div className="flex grow">
-          <button className="mr-5 outline-none" aria-label="Profile avatar">
+        <div className="flex grow items-center">
+          {" "}
+          {/* items-center 추가 */}
+          <button className="mr-3 outline-none" aria-label="Profile avatar">
+            {" "}
+            {/* mr-5에서 mr-3으로 수정 */}
             <div
-              className="w-[2.25rem] h-[2.25rem] rounded-full bg-cover bg-center"
+              className="w-[2.25rem] h-[2.25rem] rounded-full bg-cover bg-center border border-gray-200"
               style={{ backgroundImage: `url("${avatarUrl}")` }}
-            ></div>
+            ></div>{" "}
+            {/* 테두리 추가 */}
           </button>
           <div className="flex flex-col">
             <p
-              className="outline-none text-[20px] text-black opacity-60  font-semibold leading-4 tracking-[.01rem] mb-2 default-outline cursor-pointer"
+              className="outline-none text-[16px] text-[#383838] font-semibold leading-tight tracking-tight mb-1 cursor-pointer"
               tabIndex={0}
             >
               {displayName}
-            </p>
+            </p>{" "}
+            {/* 스타일 조정 */}
             {lastSeen && (
               <p
-                className="outline-none text-[14px] tracking-[-0.8px] text-black opacity-60 font-[500] leading-4 tracking-[.01rem] default-outline rounded-[.25rem]"
+                className="outline-none text-[12px] text-gray-500 leading-tight tracking-tight"
                 tabIndex={0}
                 aria-label={`Last seen ${lastSeen}`}
               >
                 {lastSeen}
               </p>
-            )}
+            )}{" "}
+            {/* 스타일 조정 */}
           </div>
         </div>
         <div className="flex">
           <button
             onClick={onSearch}
-            className="group flex justify-center items-center rounded-full outline-none focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 focus:bg-gray-50 dark:focus:bg-gray-600 transition-all duration-200 w-7 h-7 mr-3"
+            className="group flex justify-center items-center rounded-full outline-none focus:outline-none hover:bg-gray-100 focus:bg-gray-100 transition-all duration-200 w-7 h-7 mr-3"
             title="Search messages"
             aria-label="Search messages"
           >
-            <SearchIcon className="w-[1.25rem] h-[1.25rem] text-gray-400 group-hover:text-indigo-300" />
+            <SearchIcon className="w-[1.25rem] h-[1.25rem] text-gray-400 group-hover:text-indigo-500" />
           </button>
           <div className="relative">
             <button
               onClick={onMenuToggle}
-              className="group flex justify-center items-center rounded-full outline-none focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 focus:bg-gray-50 dark:focus:bg-gray-600 transition-all duration-200 w-7 h-7"
+              className="group flex justify-center items-center rounded-full outline-none focus:outline-none hover:bg-gray-100 focus:bg-gray-100 transition-all duration-200 w-7 h-7"
               id="open-conversation-menu"
               tabIndex={0}
               aria-expanded={isMenuOpen}
@@ -306,9 +302,8 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
               title="Toggle conversation menu"
               aria-label="Toggle conversation menu"
             >
-              <DotsVerticalIcon className="w-[1.25rem] h-[1.25rem] text-gray-400 group-hover:text-indigo-300" />
+              <DotsVerticalIcon className="w-[1.25rem] h-[1.25rem] text-gray-400 group-hover:text-indigo-500" />
             </button>
-            {/* ConversationMenu가 ChatInterface에서 isMenuOpen 상태에 따라 렌더링됩니다. */}
           </div>
         </div>
       </div>
@@ -322,7 +317,6 @@ interface ConversationMenuItemProps {
   onClick?: () => void;
   isDestructive?: boolean;
 }
-
 const ConversationMenuItem: React.FC<ConversationMenuItemProps> = ({
   label,
   icon,
@@ -331,45 +325,33 @@ const ConversationMenuItem: React.FC<ConversationMenuItemProps> = ({
 }) => (
   <button
     onClick={onClick}
-    className={`w-full px-4 py-3 flex items-center border-b outline-none text-sm border-gray-200 dark:border-gray-600 transition-all duration-200
-                ${
-                  isDestructive
-                    ? "text-red-500 dark:hover:text-red-50 hover:bg-red-50 active:bg-red-100 dark:hover:bg-red-900"
-                    : "text-black  opacity-60 dark:opacity-70 active:bg-gray-100 dark:hover:bg-gray-600 dark:focus:bg-gray-600 hover:bg-gray-50"
-                }`}
+    className={`w-full px-4 py-3 flex items-center border-b outline-none text-sm border-gray-200 dark:border-gray-600 transition-all duration-200 ${
+      isDestructive
+        ? "text-red-500 hover:bg-red-50 active:bg-red-100"
+        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+    }`}
     role="menuitem"
   >
     {icon} {label}
   </button>
 );
 
-interface ConversationMenuProps {
-  // isOpen: boolean; // ChatInterface에서 관리하므로 직접적인 prop은 제거 가능, 또는 스타일링 위해 유지
-  // onClose: () => void;
-}
-
+interface ConversationMenuProps {}
 const ConversationMenu: React.FC<ConversationMenuProps> = () => {
-  // 실제 메뉴 아이템들은 props나 내부 데이터로 관리
   const menuItems: ConversationMenuItemProps[] = [
     {
       label: "Profile Information",
-      icon: (
-        <ProfileInformationIcon className="h-5 w-5 mr-3 text-black opacity-60  dark:opacity-70" />
-      ),
+      icon: <ProfileInformationIcon className="h-5 w-5 mr-3 text-gray-500" />,
       onClick: () => console.log("Profile Info clicked"),
     },
     {
       label: "Voice call",
-      icon: (
-        <VoiceCallIcon className="h-5 w-5 mr-3 text-black opacity-60  dark:opacity-70" />
-      ),
+      icon: <VoiceCallIcon className="h-5 w-5 mr-3 text-gray-500" />,
       onClick: () => console.log("Voice call clicked"),
     },
     {
       label: "Shared media",
-      icon: (
-        <SharedMediaIcon className="h-5 w-5 mr-3 text-black opacity-60  dark:opacity-70" />
-      ),
+      icon: <SharedMediaIcon className="h-5 w-5 mr-3 text-gray-500" />,
       onClick: () => console.log("Shared media clicked"),
     },
     {
@@ -379,10 +361,9 @@ const ConversationMenu: React.FC<ConversationMenuProps> = () => {
       isDestructive: true,
     },
   ];
-
   return (
     <div
-      className="right-0 absolute z-[100] w-[12.5rem] mt-2 rounded-sm bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-600 focus:outline-none"
+      className="right-0 absolute z-[100] w-[12.5rem] mt-2 rounded-md bg-white shadow-lg border border-gray-200 focus:outline-none"
       role="menu"
       aria-orientation="vertical"
       aria-labelledby="open-conversation-menu"
@@ -400,34 +381,30 @@ const ConversationMenu: React.FC<ConversationMenuProps> = () => {
 interface MessageItemProps {
   message: Message;
 }
-
 const MessageItem: React.FC<MessageItemProps> = ({ message }) => {
-  const bubbleOrderClass = message.isSenderMe
-    ? "order-1 ml-[8px]"
-    : "order-2 mr-[8px]"; // Adjusted for avatar logic
-  const bubbleBgClass = message.isSenderMe
-    ? "bg-indigo-50 dark:bg-gray-600 rounded-tl"
-    : "bg-gray-50 !bg-[#01274f] !text-white rounded-tr"; // Dark mode bg for received slightly different
-  const avatarContainerClass = message.isSenderMe
-    ? "order-2"
-    : "order-1 mr-[10px]";
-  const timeAndStatusContainerClass = message.isSenderMe
-    ? "order-1 mr-[10px]"
-    : "order-3 ml-[10px]";
+  // 내가 보낸 메시지 스타일
+  const myMessageBubbleClass =
+    "bg-[#01274f] text-white rounded-l-xl rounded-br-xl"; // 요청하신 스타일
+  const myMessageContainerClass = "justify-end pl-10"; // 메시지 전체 오른쪽 정렬, 왼쪽 여백
+
+  // 상대방(AI)이 보낸 메시지 스타일
+  const partnerMessageBubbleClass =
+    "bg-[#DFDFDF] text-[#383838] rounded-r-xl rounded-bl-xl"; // 요청하신 스타일
+  const partnerMessageContainerClass = "justify-start pr-10"; // 메시지 전체 왼쪽 정렬, 오른쪽 여백
 
   return (
     <div
-      className={`select-none xs:mb-6 md:mb-5 flex items-end ${
-        message.isSenderMe ? "justify-end" : "justify-start"
+      className={`select-none flex w-full mb-3 ${
+        message.isSenderMe
+          ? myMessageContainerClass
+          : partnerMessageContainerClass
       }`}
     >
       {!message.isSenderMe && (
-        <div className={avatarContainerClass}>
-          {" "}
-          {/* Avatar for receiver */}
+        <div className="mr-[10px] self-end shrink-0">
           <div aria-label={message.sender.name} className="outline-none">
             <div
-              className="w-[2.25rem] h-[2.25rem] bg-cover bg-center rounded-full"
+              className="w-[36px] h-[36px] bg-cover bg-center rounded-full border border-gray-200"
               style={{
                 backgroundImage: `url("${
                   message.sender.avatarUrl || "https://via.placeholder.com/150"
@@ -437,21 +414,43 @@ const MessageItem: React.FC<MessageItemProps> = ({ message }) => {
           </div>
         </div>
       )}
-      <div className={timeAndStatusContainerClass}>
-        <p className="outline-none text-xs text-black opacity-60  dark:opacity-70 font-light leading-4 tracking-[.01rem] whitespace-pre">
+      <div
+        className={`flex flex-col ${
+          message.isSenderMe ? "items-end" : "items-start"
+        }`}
+      >
+        {!message.isSenderMe && (
+          <span className="text-xs text-gray-600 mb-1 ml-1">
+            {message.sender.name}
+          </span>
+        )}
+        <div
+          className={`group max-w-xs md:max-w-md p-3 shadow-sm ${
+            message.isSenderMe
+              ? myMessageBubbleClass
+              : partnerMessageBubbleClass
+          }`}
+        >
+          <p
+            className="text-sm font-normal leading-relaxed whitespace-pre-wrap"
+            tabIndex={0}
+          >
+            {message.text}
+          </p>
+        </div>
+        <p
+          className={`outline-none text-xs text-gray-400 font-light leading-4 tracking-tight mt-1 ${
+            message.isSenderMe ? "mr-1" : "ml-1"
+          }`}
+        >
           {message.time}
         </p>
       </div>
-      <div
-        className={`group max-w-[31.25rem] p-5 rounded-b transition duration-500 ${bubbleBgClass} ${bubbleOrderClass}`}
-      >
-        <p
-          className="text-[14px] font-normal leading-4 tracking-[.01rem] outline-none text-white opacity-60  dark:opacity-70"
-          tabIndex={0}
-        >
-          {message.text}
-        </p>
-      </div>
+      {message.isSenderMe && (
+        <div className="ml-[10px] self-end shrink-0">
+          {/* <img src="/assets/green_checks-6ffb68e3.svg" alt="read status" className="w-3.5 h-3.5" />  나중에 읽음 표시용 */}
+        </div>
+      )}
     </div>
   );
 };
@@ -459,7 +458,6 @@ const MessageItem: React.FC<MessageItemProps> = ({ message }) => {
 interface MessageInputProps {
   onSendMessage: (messageText: string) => void;
 }
-
 const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage }) => {
   const [messageText, setMessageText] = useState("");
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
@@ -467,8 +465,18 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage }) => {
 
   const adjustTextareaHeight = () => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // Reset height
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Set to scroll height
+      textareaRef.current.style.height = "auto";
+      const scrollHeight = textareaRef.current.scrollHeight;
+      const maxHeight = 160; // 10rem approx.
+      textareaRef.current.style.height = `${Math.min(
+        scrollHeight,
+        maxHeight
+      )}px`;
+      if (scrollHeight > maxHeight) {
+        textareaRef.current.style.overflowY = "auto";
+      } else {
+        textareaRef.current.style.overflowY = "hidden";
+      }
     }
   };
 
@@ -480,10 +488,6 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage }) => {
     if (messageText.trim()) {
       onSendMessage(messageText.trim());
       setMessageText("");
-      // After sending, reset height if needed, or it will be handled by useEffect on messageText change
-      if (textareaRef.current) {
-        textareaRef.current.style.height = "auto";
-      }
     }
   };
 
@@ -499,136 +503,148 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage }) => {
   };
 
   return (
-    <div className="w-full border-t !border-[#01274f]">
-      <div className="h-auto min-h-[60px] p-[15px] flex items-end">
-        <div className="min-h-[2.75rem]">
-          <button
-            className="group flex justify-center items-center rounded-full outline-none focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 focus:bg-gray-50 dark:focus:bg-gray-600 transition-all duration-200 w-7 h-7 md:mr-5 xs:mr-4"
-            title="Open select attachments modal"
-            aria-label="Open select attachments modal"
-            onClick={() => alert("Attach file clicked (implement modal)")}
-          >
-            <AttachmentIcon className="w-[1.25rem] h-[1.25rem] text-gray-400 group-hover:text-indigo-300" />
-          </button>
-        </div>
-        <div className="grow md:mr-5 xs:mr-4 self-end">
-          <div className="relative">
-            <textarea
-              ref={textareaRef}
-              className="max-w-full w-full px-5 py-4 rounded-sm content-center outline-none text-sm placeholder:text-black placeholder:opacity-40 text-opacity-70  dark:placeholder:opacity-70 focus:outline-none transition duration-200 ease-out text-black bg-gray-50  border-opacity-0 !bg-[#01274f] !text-[#383838] !bg-[#fff] !text-[#383838]  dark:border-opacity-70 !border-[#01274f] max-h-[10rem] pr-[3.125rem] resize-none scrollbar-hidden" // Increased max-h for better multiline
-              value={messageText}
-              onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
-              rows={1}
-              placeholder="무엇을 도와드릴까요?"
-              aria-label="무엇을 도와드릴까요?"
-            ></textarea>
-            <div className="absolute bottom-[.8125rem] right-0">
-              <button
-                onClick={() => setIsEmojiPickerOpen(!isEmojiPickerOpen)}
-                className="group flex justify-center items-center rounded-full outline-none focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 focus:bg-gray-50 dark:focus:bg-gray-600 transition-all duration-200 toggle-picker-button w-7 h-7 md:mr-5 xs:mr-4"
-                title="Toggle emoji picker"
-                aria-label="Toggle emoji picker"
-              >
-                <EmojiIcon className="w-[1.25rem] h-[1.25rem] text-gray-400 group-hover:text-indigo-300" />
-              </button>
-              {isEmojiPickerOpen && (
-                <div className="absolute z-10 bottom-[calc(100%+0.5rem)] md:right-0 xs:right-[-5rem] mt-2 bg-white dark:bg-gray-800 shadow-lg rounded-md border !border-[#01274f] p-2">
-                  <p className="text-xs text-gray-500">
-                    Emoji Picker Placeholder
-                  </p>
-                  {/* You would integrate a real emoji picker component here */}
-                </div>
-              )}
-            </div>
+    <div className="w-full border-t !border-[#DFDFDF] bg-white p-[15px]">
+      {" "}
+      {/* 배경색, 테두리, 패딩 수정 */}
+      <div className="flex items-end space-x-3">
+        {" "}
+        {/* space-x 로 간격 조정 */}
+        <button
+          className="p-2 text-gray-500 hover:text-indigo-600 focus:outline-none"
+          title="Open select attachments modal"
+          aria-label="Open select attachments modal"
+          onClick={() => alert("Attach file clicked (implement modal)")}
+        >
+          <AttachmentIcon className="w-5 h-5" />
+        </button>
+        <div className="relative grow">
+          <textarea
+            ref={textareaRef}
+            className="w-full px-4 py-2.5 rounded-lg content-center outline-none text-sm placeholder:text-[#949494] text-[#383838] bg-[#F9F9F9] border border-[#F0F0F0] focus:border-[#01274F] focus:ring-1 focus:ring-[#01274F] max-h-[10rem] pr-10 resize-none scrollbar-hidden transition-colors duration-200"
+            value={messageText}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+            rows={1}
+            placeholder="무엇을 도와드릴까요?"
+            aria-label="무엇을 도와드릴까요?"
+            style={{ overflowY: "hidden" }} // 초기 스크롤바 숨김
+          ></textarea>
+          <div className="absolute bottom-2.5 right-2">
+            {" "}
+            {/* 위치 조정 */}
+            <button
+              onClick={() => setIsEmojiPickerOpen(!isEmojiPickerOpen)}
+              className="p-1 text-gray-400 hover:text-indigo-500 focus:outline-none"
+              title="Toggle emoji picker"
+              aria-label="Toggle emoji picker"
+            >
+              <EmojiIcon className="w-5 h-5" />
+            </button>
+            {isEmojiPickerOpen && (
+              <div className="absolute z-10 bottom-[calc(100%+0.5rem)] right-0 mt-2 bg-white shadow-lg rounded-md border border-gray-200 p-2">
+                <p className="text-xs text-gray-500">
+                  Emoji Picker Placeholder
+                </p>
+              </div>
+            )}
           </div>
         </div>
-        <div className="min-h-[2.75rem] flex">
-          <button
-            className="group flex justify-center items-center rounded-full outline-none focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 focus:bg-gray-50 dark:focus:bg-gray-600 transition-all duration-200 w-7 h-7 md:mr-5 xs:mr-4"
-            title="Start recording"
-            aria-label="Start recording"
-            onClick={() => alert("Record audio clicked (not implemented)")}
-          >
-            <MicrophoneIcon className="w-[1.25rem] h-[1.25rem] text-gray-400 group-hover:text-indigo-300" />
-          </button>
-          <button
-            onClick={handleSubmit}
-            className="group flex justify-center items-center outline-none rounded-full focus:outline-none transition-all duration-200 w-7 h-7 bg-indigo-300 hover:bg-indigo-400 focus:bg-indigo-400 dark:focus:bg-indigo-300 dark:bg-indigo-400 dark:hover:bg-indigo-400 active:scale-110"
-            title="Send message"
-            aria-label="Send message"
-          >
-            <SendIcon className="w-[1.0625rem] h-[1.0625rem] text-white" />
-          </button>
-        </div>
+        <button
+          onClick={() => alert("Record audio clicked (not implemented)")}
+          className="p-2 text-gray-500 hover:text-indigo-600 focus:outline-none"
+          title="Start recording"
+          aria-label="Start recording"
+        >
+          <MicrophoneIcon className="w-5 h-5" />
+        </button>
+        <button
+          onClick={handleSubmit}
+          className="p-2 bg-[#01274F] text-white rounded-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[#01274F] focus:ring-opacity-50 transition-colors duration-200 active:scale-95"
+          title="Send message"
+          aria-label="Send message"
+        >
+          <SendIcon className="w-5 h-5" />
+        </button>
       </div>
     </div>
   );
 };
+// --- 채팅 UI 관련 타입 및 컴포넌트 정의 끝 ---
 
 // --- ChatInterface 컴포넌트 (메인 채팅 UI 로직) ---
-const ChatInterface = () => {
+const ChatInterface = ({
+  initialKeyword,
+}: {
+  initialKeyword?: string | null;
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const messageAreaRef = useRef<HTMLDivElement>(null);
 
-  const dummyUser2: User = {
-    name: "Ahmed Ali",
-    avatarUrl:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+  const currentUser: User = {
+    name: "나",
+    avatarUrl: "https://via.placeholder.com/150/007BFF/FFFFFF?Text=ME",
   };
-  const dummyCurrentUser: User = {
-    name: "Me",
-    avatarUrl: "https://via.placeholder.com/150/007BFF/FFFFFF?Text=Me",
-  }; // Example current user
+  const aiPartner: User = {
+    name: "아이고 AI",
+    avatarUrl: "/icon/aigo-ai-logo.svg" /* AI 로고 경로 */,
+    lastSeen: "언제나 당신 곁에",
+  };
 
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "2",
-      text: "무엇을 도와드릴까요?",
-      time: "2:00 pm",
-      sender: dummyUser2,
-      isSenderMe: false,
-    },
-    {
-      id: "3",
-      text: "4월 11일 17시 회기역 1번출구에서 저녁 모임 등록해줘",
-      time: "5:00 pm",
-      sender: dummyCurrentUser,
-      isSenderMe: true,
-    },
-    {
-      id: "4",
-      text: "날짜 : 2025.04.11. 시간 : 17:00 제목 : 저녁 모임 장소 : 회기역 1번 출구",
-      time: "3:00 pm",
-      sender: dummyUser2,
-      isSenderMe: false,
-    },
-    {
-      id: "5",
-      text: "일정 상세정보 입력하러가기",
-      time: "3:00 pm",
-      sender: dummyUser2,
-      isSenderMe: false,
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
-  const handleSendMessage = (messageText: string) => {
+  const addMessage = (text: string, sender: User, isSenderMe: boolean) => {
     const newMessage: Message = {
-      id: String(Date.now()),
-      text: messageText,
+      id: String(Date.now()) + Math.random(), // 고유 ID 강화
+      text: text,
       time: new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
         hour12: true,
       }),
-      sender: dummyCurrentUser,
-      isSenderMe: true,
+      sender: sender,
+      isSenderMe: isSenderMe,
     };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
-    // TODO: 여기에 Socket.IO를 통해 메시지를 서버로 전송하는 로직을 추가합니다.
-    // 예: socket.emit('sendMessage', newMessage);
-    console.log("Sending message via ChatInterface:", newMessage);
   };
+
+  const handleSendMessage = (messageText: string) => {
+    addMessage(messageText, currentUser, true);
+
+    // TODO: 여기에 실제 AI 백엔드 또는 Socket.IO 서버로 메시지를 전송하는 로직을 추가합니다.
+    // 예: fetch('/api/ai-chat', { method: 'POST', body: JSON.stringify({ message: messageText }) })
+    //      .then(res => res.json())
+    //      .then(data => addMessage(data.reply, aiPartner, false));
+    console.log("사용자 메시지 전송:", messageText);
+
+    // AI 응답 시뮬레이션 (실제 백엔드 연동 필요)
+    setTimeout(() => {
+      addMessage(
+        `"${messageText}"라고 말씀하셨네요. (AI 응답 예시)`,
+        aiPartner,
+        false
+      );
+    }, 1000 + Math.random() * 1000);
+  };
+
+  useEffect(() => {
+    // 페이지 로드 시 initialKeyword가 있으면 첫 메시지로 자동 전송
+    if (initialKeyword) {
+      // 초기 키워드가 없으면 AI의 환영 메시지를 먼저 표시
+      addMessage(
+        "안녕하세요! 아이고 AI입니다. 무엇을 도와드릴까요?",
+        aiPartner,
+        false
+      );
+      handleSendMessage(initialKeyword);
+    } else {
+      // 초기 키워드가 없으면 AI의 환영 메시지를 먼저 표시
+      addMessage(
+        "안녕하세요! 아이고 AI입니다. 무엇을 도와드릴까요?",
+        aiPartner,
+        false
+      );
+    }
+  }, [initialKeyword]);
 
   useEffect(() => {
     if (messageAreaRef.current) {
@@ -638,69 +654,63 @@ const ChatInterface = () => {
 
   return (
     <div
-      id="mainContent"
-      className="flex flex-col grow h-full w-full scrollbar-hidden bg-[#e8e8e8] transition-all duration-500"
+      id="chatInterface"
+      className="flex flex-col grow h-full w-full bg-[#F9F9F9] overflow-hidden"
       role="region"
     >
+      {" "}
+      {/* 배경색 및 overflow 수정 */}
       <ChatHeader
-        groupName="아이고 AI" // 예시 그룹명
-        groupAvatarUrl="https://images.unsplash.com/photo-1573867639040-6dd25fa5f597?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-        lastSeen="무엇이든 물어보세요."
-        onBack={() => alert("Back button clicked (e.g., close chat window)")}
-        onSearch={() => alert("Search clicked (implement search UI)")}
+        participant={aiPartner}
+        lastSeen={aiPartner.lastSeen}
+        onBack={() => window.history.back()}
+        onSearch={() => alert("Search clicked")}
         onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
         isMenuOpen={isMenuOpen}
       />
-      <div className="relative">
+      <div className="relative z-10">
         {" "}
-        {/* 메뉴가 헤더 바로 아래에 위치하도록 */}
+        {/* 메뉴가 다른 요소 위에 오도록 z-index 추가 */}
         {isMenuOpen && <ConversationMenu />}
       </div>
-
       <div
         ref={messageAreaRef}
-        className="grow px-[15px] py-5 !bg-[#f9f9f9] flex flex-col overflow-y-auto scrollbar-hidden gap-y-[15px]"
+        className="grow px-4 py-5 flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 gap-y-4"
       >
-        {messages.map((msg) => (
-          <MessageItem key={msg.id} message={msg} />
-        ))}
         <div className="w-full h-full">
-          <div className="w-full my-7 flex items-center justify-center">
-            <div className="w-full h-0 border-t border-dashed dark:border-gray-600"></div>
-            <p className="outline-none text-xs font-light text-black opacity-60  dark:opacity-70 leading-4 tracking-[.01rem] mx-5 whitespace-nowrap">
-              {" "}
-              Today{" "}
-            </p>
-            <div className="w-full h-0 border-t border-dashed dark:border-gray-600"></div>
-          </div>
+          {messages.map((msg) => (
+            <MessageItem key={msg.id} message={msg} />
+          ))}
         </div>
       </div>
-
       <MessageInput onSendMessage={handleSendMessage} />
-
-      {/* 모달들은 여기에 조건부로 렌더링합니다. 
-          예: {isGroupInfoModalOpen && <GroupInfoModal onClose={() => setIsGroupInfoModalOpen(false)} />}
-          제공된 HTML에는 여러 모달이 있었지만, 이 변환에서는 주요 채팅 인터페이스에 집중했습니다.
-          각 모달(Group Info, Media Carousel, Search Messages 등)은 별도의 컴포넌트로 만들고 
-          ChatInterface 내에서 상태에 따라 조건부 렌더링해야 합니다.
-      */}
     </div>
   );
 };
-// --- 채팅 UI 관련 타입 및 컴포넌트 정의 끝 ---
+// --- ChatInterface 컴포넌트 끝 ---
 
-// --- Home 컴포넌트 ---
-export default function Home() {
+// --- /chat 페이지의 실제 컨텐츠를 렌더링하는 컴포넌트 ---
+function ChatPageContent() {
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get("keyword");
+
+  return <ChatInterface initialKeyword={keyword} />;
+}
+
+// --- /chat 페이지 기본 내보내기 ---
+export default function ChatPage() {
   return (
-    <div className="flex flex-col w-full h-full">
-      <NavBarMain link="/mypage"></NavBarMain>
-      <div className="w-full grow overflow-y-auto flex">
-        {" "}
-        {/* grow와 flex 추가 */}
-        {/* 주석 처리된 간단한 채팅 UI 대신 ChatInterface를 렌더링합니다. */}
-        {/* ChatInterface는 자체적으로 스크롤 및 높이 관리를 하도록 설계되었습니다. */}
-        <ChatInterface />
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center h-screen text-xl">
+          채팅 로딩 중...
+        </div>
+      }
+    >
+      <div className="flex flex-col w-full h-full">
+        <NavBarMain link="/mypage" />
+        <ChatPageContent />
       </div>
-    </div>
+    </Suspense>
   );
 }
