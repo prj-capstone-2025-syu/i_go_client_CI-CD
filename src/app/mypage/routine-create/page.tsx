@@ -16,7 +16,7 @@ export default function routineFormPage() {
     id: Date.now(),
     name: "여유시간(기본값)",
     time: "10",
-    disabled: 1,
+    disabled: true,
   };
 
   const [routineroutines, setroutineroutines] = useState<routineroutine[]>([
@@ -31,7 +31,7 @@ export default function routineFormPage() {
         id: Date.now() + prevroutines.length,
         name: "",
         time: "",
-        disabled: 0,
+        disabled: false,
       },
     ]);
   };
