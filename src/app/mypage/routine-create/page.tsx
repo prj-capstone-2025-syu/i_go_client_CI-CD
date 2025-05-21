@@ -9,6 +9,7 @@ interface routineroutine {
   id: number; // Using number for simplicity, could be string for UUIDs
   name: string;
   time: string;
+  disabled: boolean;
 }
 
 export default function routineFormPage() {
