@@ -1,5 +1,7 @@
 "use client"; // 상태(useState)와 라우터(useRouter)를 사용하므로 클라이언트 컴포넌트로 명시합니다.
-
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import React, { useState } from "react";
 import NavBarMain from "@/components/common/topNavMain"; // 기존 import 유지
 import Link from "next/link"; // 기존 import 유지
@@ -16,7 +18,9 @@ export default function Home() {
       router.push(`/chat?keyword=${encodeURIComponent(keyword.trim())}`);
     }
   };
-
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div className="flex flex-col w-full h-full">
       <NavBarMain link="/mypage"></NavBarMain>
@@ -52,7 +56,14 @@ export default function Home() {
           </form>
           {/* 진행중인 일정, 다가오는 일정, 날씨 등 나머지 UI 코드... */}
           {/* ... (사용자님이 제공해주신 나머지 Home 페이지 코드가 여기에 위치합니다) ... */}
-          <div className="flex justify-between items-end w-full mb-[8px] px-[5px]">
+          <div
+            data-aos="fade-up"
+            data-aos-easing="ease-in-out"
+            data-aos-duration="400"
+            data-aos-once="true"
+            data-aos-delay="200"
+            className="flex justify-between items-end w-full mb-[8px] px-[5px]"
+          >
             <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">
               진행중인 일정
             </p>
@@ -62,7 +73,14 @@ export default function Home() {
               </span>
             </p>
           </div>
-          <div className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]">
+          <div
+            data-aos="fade-up"
+            data-aos-easing="ease-in-out"
+            data-aos-duration="400"
+            data-aos-once="true"
+            data-aos-delay="200"
+            className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]"
+          >
             <div className="flex justify-between items-center w-full mb-[8px] ">
               <p className="text-[#383838] text-[17px] font-[500] tracking-[-0.4px] leading-[155%] line-clamp-1">
                 삼육이와 맛집&카페 탐방
@@ -251,7 +269,14 @@ export default function Home() {
           </div>
 
           {/* 다가오는 일정 */}
-          <div className="flex justify-between items-end w-full mb-[8px] px-[5px]">
+          <div
+            data-aos="fade-up"
+            data-aos-easing="ease-in-out"
+            data-aos-duration="400"
+            data-aos-once="true"
+            data-aos-delay="400"
+            className="flex justify-between items-end w-full mb-[8px] px-[5px]"
+          >
             <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">
               다가오는 일정
             </p>
@@ -274,7 +299,14 @@ export default function Home() {
               </svg>
             </Link>
           </div>
-          <div className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]">
+          <div
+            data-aos="fade-up"
+            data-aos-easing="ease-in-out"
+            data-aos-duration="400"
+            data-aos-once="true"
+            data-aos-delay="400"
+            className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]"
+          >
             <Link
               href="#"
               className="flex items-start  flex-col  justify-between gap-x-[10px] gap-y-[4px] w-full bg-[#fff] border-b-[1px] border-[#dfdfdf] py-[7px] px-[10px] lg:px-[20px] hover:bg-[#dfdfdf] last:!border-[0px] first:!pt-[0px] last:!pb-[0px]"
