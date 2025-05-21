@@ -10,7 +10,7 @@ export default function Home() {
         <button
           className="hover:opacity-[0.7] cursor-pointer py-[10px] px-[5px] bg-[#01274F] border-[1px] border-[#01274F] rounded-[7px] text-[#fff] text-[15px] tracking-[-0.6px] font-[500]"
           onClick={() => {
-            location.href = "#";
+            location.href = "/mypage/routine-create";
           }}
           type="button"
         >
@@ -21,39 +21,27 @@ export default function Home() {
         <div className="flex flex-col items-center justify-start p-[20px] w-full h-auto">
           <div className="w-full grid grid-cols-3 gap-[15px]">
             <Link
-              href="#"
+              href="/mypage/routine-detail"
               className="text-[#383838] text-center text-[14px] bg-[#fff] rounded-[5px] aspect-square flex items-center justify-center flex-col hover:opacity-[0.7]"
             >
-              <button type="button" className="cursor-pointer">
-                삭제
-              </button>
+              <p>등교 전 루틴</p>
+            </Link>
+            <Link
+              href="/mypage/routine-detail"
+              className="text-[#383838] text-center text-[14px] bg-[#fff] rounded-[5px] aspect-square flex items-center justify-center flex-col hover:opacity-[0.7]"
+            >
               <p>루틴이름</p>
             </Link>
             <Link
-              href="#"
+              href="/mypage/routine-detail"
               className="text-[#383838] text-center text-[14px] bg-[#fff] rounded-[5px] aspect-square flex items-center justify-center flex-col hover:opacity-[0.7]"
             >
-              <button type="button" className="cursor-pointer">
-                삭제
-              </button>
               <p>루틴이름</p>
             </Link>
             <Link
-              href="#"
+              href="/mypage/routine-detail"
               className="text-[#383838] text-center text-[14px] bg-[#fff] rounded-[5px] aspect-square flex items-center justify-center flex-col hover:opacity-[0.7]"
             >
-              <button type="button" className="cursor-pointer">
-                삭제
-              </button>
-              <p>루틴이름</p>
-            </Link>
-            <Link
-              href="#"
-              className="text-[#383838] text-center text-[14px] bg-[#fff] rounded-[5px] aspect-square flex items-center justify-center flex-col hover:opacity-[0.7]"
-            >
-              <button type="button" className="cursor-pointer">
-                삭제
-              </button>
               <p>루틴이름</p>
             </Link>
           </div>
