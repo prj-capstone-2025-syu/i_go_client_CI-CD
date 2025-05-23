@@ -1,9 +1,14 @@
+"use client";
 import NavBar from "@/components/common/topNav";
-
+import React, { useState } from "react";
 export default function Home() {
   async function createSchedule() {
-    "use server";
+    "use client";
   }
+  const [selectedRoutine, setSelectedRoutine] = useState("r-0");
+  const handleRoutineChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedRoutine(e.target.value);
+  };
   return (
     <div className="flex flex-col w-full h-full">
       <NavBar title="일정 등록" link="/mypage"></NavBar>
@@ -87,19 +92,60 @@ export default function Home() {
 
                   <div className="relative">
                     <p className="text-[#383838] text-[13px] font-[500] tracking-[-0.4px] mb-[7px]">
-                      일정 위치
+                      장소
                     </p>
                     <div className="flex justify-between items-center w-full gap-x-[8px]">
                       <input
                         type="text"
                         name="address"
+                        required
                         defaultValue=""
-                        placeholder="일정 위치를 입력해주세요."
+                        placeholder="일정 장소를 입력해주세요."
                         className="text-[13px] text-[#383838] font-[400] tracking-[-0.4px] w-full border-[1px] border-[#DFDFDF] py-[8px] px-[15px] disabled:!bg-[#ECEDEF] readonly:!bg-[#ECEDEF] !outline-none hover:border-[#383838]"
                       />
                     </div>
                   </div>
-
+                  <div className="relative">
+                    <p className="text-[#383838] text-[13px] font-[500] tracking-[-0.4px] mb-[7px]">
+                      루틴 선택
+                    </p>
+                    <div className="group relative flex w-full justify-between items-center overflow-hidden w-full">
+                      <select
+                        required
+                        value={selectedRoutine}
+                        onChange={handleRoutineChange}
+                        name="address_type"
+                        className="appearance-none bg-transparent w-full h-full outline-none border-[1px] border-[#DFDFDF] focus:border-[#383838] pl-[15px] pr-[42px] py-[8px] text-[13px] leading-[20px] tracking-[-0.4px] text-[#383838]"
+                      >
+                        <option value="r-0" disabled>
+                          루틴을 선택하세요.
+                        </option>
+                        <option value="r-1">집-학교 루틴</option>
+                        <option value="r-1">학교-약속 루틴</option>
+                        <option value="r-1">집-약속 루틴</option>
+                      </select>
+                      <div className="group-hover:rotate-180 duration-300 absolute right-[15px]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="12"
+                          height="12"
+                          fill="none"
+                        >
+                          <g clipPath="url(#a)">
+                            <path
+                              fill="#383838"
+                              d="M5.572 9.12a.612.612 0 0 0 .857 0l5.394-5.381a.604.604 0 1 0-.856-.855L6 7.837 1.034 2.883a.604.604 0 1 0-.857.855l5.395 5.381Z"
+                            ></path>
+                          </g>
+                          <defs>
+                            <clipPath id="a">
+                              <path fill="#fff" d="M12 12H0V0h12z"></path>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                   <div className="relative">
                     <p className="text-[#383838] text-[13px] font-[500] tracking-[-0.4px] mb-[7px]">
                       준비물
@@ -150,7 +196,7 @@ export default function Home() {
                       비대면 일정
                     </label>
                   </div>
-                  <div className="flex flex-row items-center justify-center gap-x-[12px] w-full">
+                  <div className="flex flex-row items-center justify-center gap-x-[12px] w-full pt-[20px]">
                     <button
                       type="button"
                       className="hidden search-reset flex justify-center bg-[#777777] hover:bg-[#777777]/90 min-w-[115px] py-[10px] px-[20px] rounded-[4px]"
