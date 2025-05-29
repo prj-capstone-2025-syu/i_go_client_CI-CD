@@ -274,7 +274,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <div className="w-full h-auto px-[10px] py-[5px] bg-[#0080FF] rounded-[6px] flex items-center justify-between">
+              <div className="animate-pulse w-full h-auto px-[10px] py-[5px] bg-[#0080FF] rounded-[6px] flex items-center justify-between">
                 <p className="text-[#fff] text-[14px] font-[600] tracking-[-0.5px] leading-[102%] line-clamp-1">
                   머리 감기
                 </p>
