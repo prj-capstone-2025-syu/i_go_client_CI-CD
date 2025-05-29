@@ -393,12 +393,13 @@ export default function Home() {
           </div>
 
           {/* 날씨 */}
+          {/* 날씨 */}
           <div className="flex justify-between items-end w-full mb-[8px] px-[5px]">
             <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">
               날씨
             </p>
             <Link
-              href="https://www.weather.go.kr/w/index.do"
+              href="https://www.kma.go.kr/w/iframe/dfs.do"
               target="_blank"
               className="flex items-center gap-x-[2px]"
             >
@@ -420,38 +421,10 @@ export default function Home() {
               </svg>
             </Link>
           </div>
-          <div className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]">
-            <Link
-              href="#"
-              className="flex items-start  flex-col  justify-between gap-x-[10px] gap-y-[4px] w-full bg-[#fff] border-b-[1px] border-[#dfdfdf] py-[7px] px-[10px] lg:px-[20px] hover:bg-[#dfdfdf] last:!border-[0px] first:!pt-[0px] last:!pb-[0px]"
-            >
-              <p className="w-full text-[#383838] text-[13px] line-clamp-1 pr-[15px]">
-                제목은 첫줄까지만 표시됩니다. 제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.
-              </p>
-              <div className="flex flex-row gap-x-[3px] md:gap-x-[15px] xl:gap-x-[65px]">
-                <p className="w-full text-[#777] text-[13px] pr-[5px] min-w-[68px] text-left md:text-center whitespace-nowrap">
-                  YYYY-MM-DD TT:MM
-                </p>
-              </div>
-            </Link>
-            <Link
-              href="#"
-              className="flex items-start  flex-col  justify-between gap-x-[10px] gap-y-[4px] w-full bg-[#fff] border-b-[1px] border-[#dfdfdf] py-[7px] px-[10px] lg:px-[20px] hover:bg-[#dfdfdf] last:!border-[0px] first:!pt-[0px] last:!pb-[0px]"
-            >
-              <p className="w-full text-[#383838] text-[13px] line-clamp-1 pr-[15px]">
-                제목은 첫줄까지만 표시됩니다. 제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.제목은 첫줄까지만
-                표시됩니다.제목은 첫줄까지만 표시됩니다.
-              </p>
-              <div className="flex flex-row gap-x-[3px] md:gap-x-[15px] xl:gap-x-[65px]">
-                <p className="w-full text-[#777] text-[13px] pr-[5px] min-w-[68px] text-left md:text-center whitespace-nowrap">
-                  YYYY-MM-DD TT:MM
-                </p>
-              </div>
-            </Link>
-          </div>
+          <iframe
+            src="https://www.kma.go.kr/w/iframe/dfs.do"
+            className="w-full bg-[#fff] px-[10px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px] aspect-[38/93]"
+          ></iframe>
         </div>
       </div>
     </div>
