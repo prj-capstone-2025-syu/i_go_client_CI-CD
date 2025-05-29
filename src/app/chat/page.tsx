@@ -233,8 +233,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
   isMenuOpen,
 }) => {
   const displayName = groupName || participant?.name || "Chat";
-  const avatarUrl =
-    groupAvatarUrl || participant?.avatarUrl || "/icon/aigo-ai-logo.svg"; // AI 로고 기본값
+  const avatarUrl = groupAvatarUrl || participant?.avatarUrl || "/logo.png"; // AI 로고 기본값
   return (
     <div className="w-full min-h-[5.25rem] px-5 py-6 border-b !border-[#DFDFDF] bg-white">
       {" "}
@@ -257,7 +256,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
             {" "}
             {/* mr-5에서 mr-3으로 수정 */}
             <div
-              className="w-[2.25rem] h-[2.25rem] rounded-full bg-cover bg-center border border-gray-200"
+              className="w-[2.25rem] h-[2.25rem] rounded-full bg-contain bg-center bg-no-repeat bg-[#fff] border border-gray-200"
               style={{ backgroundImage: `url("${avatarUrl}")` }}
             ></div>{" "}
             {/* 테두리 추가 */}
@@ -404,11 +403,9 @@ const MessageItem: React.FC<MessageItemProps> = ({ message }) => {
         <div className="mr-[10px] self-end shrink-0">
           <div aria-label={message.sender.name} className="outline-none">
             <div
-              className="w-[36px] h-[36px] bg-cover bg-center rounded-full border border-gray-200"
+              className="w-[36px] h-[36px] bg-contain bg-no-repeat bg-center rounded-full border border-gray-200 bg-[#fff]"
               style={{
-                backgroundImage: `url("${
-                  message.sender.avatarUrl || "https://via.placeholder.com/150"
-                }")`,
+                backgroundImage: `url("/logo.png")`,
               }}
             ></div>
           </div>
@@ -582,11 +579,11 @@ const ChatInterface = ({
 
   const currentUser: User = {
     name: "나",
-    avatarUrl: "https://via.placeholder.com/150/007BFF/FFFFFF?Text=ME",
+    avatarUrl: "/logo.png",
   };
   const aiPartner: User = {
     name: "아이고 AI",
-    avatarUrl: "/icon/aigo-ai-logo.svg" /* AI 로고 경로 */,
+    avatarUrl: "/logo.png" /* AI 로고 경로 */,
     lastSeen: "언제나 당신 곁에",
   };
 

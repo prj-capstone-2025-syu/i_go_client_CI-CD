@@ -96,7 +96,7 @@ const MessageItem: React.FC<{ message: Message }> = ({ message }) => {
         <div className="mr-[10px] self-end shrink-0">
           <div aria-label={message.sender.name} className="outline-none">
             <div
-              className="w-[36px] h-[36px] bg-cover bg-center rounded-full border border-gray-200"
+              className="w-[36px] h-[36px] bg-contain bg-center bg-[#fff] bg-no-repeat rounded-full border border-gray-200"
               style={{ backgroundImage: `url("${message.sender.avatarUrl}")` }}
             ></div>
           </div>
@@ -151,7 +151,7 @@ const ChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isFlowRunning, setIsFlowRunning] = useState(false); // AI 대화 흐름 진행 여부
 
-  const aiPartner = { name: "아이고 AI", avatarUrl: "/icon/aigo-ai-logo.svg" };
+  const aiPartner = { name: "아이고 AI", avatarUrl: "/logo.png" };
   const currentUser = { name: "나", avatarUrl: "..." };
 
   // 범용 메시지 추가 함수
