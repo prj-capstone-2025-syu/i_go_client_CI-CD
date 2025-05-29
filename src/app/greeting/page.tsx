@@ -314,6 +314,9 @@ export default function ChatPage() {
     <Suspense fallback={<div>로딩...</div>}>
       <div className="flex flex-col w-full h-full">
         <style jsx global>{`
+          .btn-history-back {
+            pointer-events: none;
+          }
           .main-wrapper {
             height: 100dvh !important;
           }
