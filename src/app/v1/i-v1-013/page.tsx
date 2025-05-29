@@ -243,6 +243,77 @@ export default function Home() {
                 TMAP 빠른 길찾기
               </p>
             </Link>
+            <div className="mt-[20px] mb-[13px] w-full h-[1px] bg-[#dfdfdf]"></div>
+            <div className="flex justify-between items-center w-full mb-[8px] ">
+              <p className="text-[#383838] text-[17px] font-[600] tracking-[-0.4px] leading-[110%] line-clamp-1">
+                진행 중인 루틴
+              </p>
+              <div className="flex items-center gap-x-[1px]">
+                <span>🏃‍♂️&nbsp;</span>
+                <span className="text-[#01274f] text-[15px] font-[600] tracking-[-0.8px] leading-[102%] line-clamp-1">
+                  집 -&gt; 학교 루틴 (65분)
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col gap-[9px]">
+              <div className="w-full h-auto px-[10px] py-[5px] bg-[#888] rounded-[6px] flex items-center justify-between">
+                <p className="text-[#fff] text-[14px] font-[600] tracking-[-0.5px] leading-[102%] line-clamp-1">
+                  모닝 커피 내리기
+                </p>
+                <div className="flex items-center gap-x-[1px]">
+                  <span>✅&nbsp;</span>
+                  <span className="text-[#fff] text-[15px] font-[600] tracking-[-0.8px] leading-[102%] line-clamp-1">
+                    5분
+                  </span>
+                  <span className="text-[#fff] text-[15px] font-[600] tracking-[-0.8px] leading-[102%] line-clamp-1">
+                    &nbsp; 완료
+                  </span>
+                </div>
+              </div>
+              <div className="w-full h-auto px-[10px] py-[5px] bg-[#0080FF] rounded-[6px] flex items-center justify-between">
+                <p className="text-[#fff] text-[14px] font-[600] tracking-[-0.5px] leading-[102%] line-clamp-1">
+                  머리 감기
+                </p>
+                <div className="flex items-center gap-x-[1px]">
+                  <span>⌛&nbsp;</span>
+                  <span className="text-[#fff] text-[15px] font-[600] tracking-[-0.8px] leading-[102%] line-clamp-1">
+                    10분
+                  </span>
+                  <span className="text-[#fff] text-[15px] font-[600] tracking-[-0.8px] leading-[102%] line-clamp-1">
+                    &nbsp; 진행 중
+                  </span>
+                </div>
+              </div>
+
+              <div className="w-full h-auto px-[10px] py-[5px] bg-[#0080FF]/40 rounded-[6px] flex items-center justify-between">
+                <p className="text-[#fff] text-[14px] font-[600] tracking-[-0.5px] leading-[102%] line-clamp-1">
+                  세수 하기
+                </p>
+                <div className="flex items-center gap-x-[1px]">
+                  <span>⏭️&nbsp;</span>
+                  <span className="text-[#fff] text-[15px] font-[600] tracking-[-0.8px] leading-[102%] line-clamp-1">
+                    10분
+                  </span>
+                  <span className="text-[#fff] text-[15px] font-[600] tracking-[-0.8px] leading-[102%] line-clamp-1">
+                    &nbsp; 대기 중
+                  </span>
+                </div>
+              </div>
+              <div className="w-full h-auto px-[10px] py-[5px] bg-[#0080FF]/40 rounded-[6px] flex items-center justify-between">
+                <p className="text-[#fff] text-[14px] font-[600] tracking-[-0.5px] leading-[102%] line-clamp-1">
+                  머리 말리기
+                </p>
+                <div className="flex items-center gap-x-[1px]">
+                  <span>⏭️&nbsp;</span>
+                  <span className="text-[#fff] text-[15px] font-[600] tracking-[-0.8px] leading-[102%] line-clamp-1">
+                    10분
+                  </span>
+                  <span className="text-[#fff] text-[15px] font-[600] tracking-[-0.8px] leading-[102%] line-clamp-1">
+                    &nbsp; 대기 중
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
