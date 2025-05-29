@@ -3,8 +3,7 @@ import NavBar from "@/components/common/topNav";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
-
-// Metadata 객체 export
+import koLocale from "@fullcalendar/core/locales/ko";
 
 export default function Calendar() {
   const events = [
@@ -12,24 +11,33 @@ export default function Calendar() {
       title: "아침 먹기",
       start: "2025-05-17",
       end: "2025-05-17",
-      color: "#fb8494",
+      color: "#01274f",
     },
     {
       title: "점심 먹기",
       start: "2025-05-19",
       end: "2025-05-20",
-      color: "#fb8494",
+      color: "#01274f",
     },
     {
       title: "저녁 먹기",
       start: "2025-05-23",
       end: "2025-05-30",
-      color: "#fb8494",
+      color: "#01274f",
     },
   ];
 
   return (
     <div className="flex flex-col w-full h-full">
+      <style jsx global>{`
+        .fc-toolbar-title {
+          font-size: 18px !important;
+          font-weight: 500;
+        }
+        .fc .fc-toolbar.fc-header-toolbar {
+          margin-bottom: 15px !important;
+        }
+      `}</style>
       <NavBar title="캘린더" link="#" />
       <div className="z-[999] absolute bottom-[0px] left-[0px]  grid grid-cols-2 w-full bg-[#fff] p-[12px] gap-[12px]">
         <button
@@ -53,13 +61,15 @@ export default function Calendar() {
       </div>
       <div className="w-full max-h-full overflow-y-auto">
         <div className="w-full max-h-full overflow-y-auto">
-          <div className="p-[20px] h-full">
+          <div className="flex flex-col gap-y-[20px] p-[15px] h-full">
             <FullCalendar
+              locale={koLocale}
               initialView="dayGridMonth"
               plugins={[dayGridPlugin]}
               events={events}
             />
             <FullCalendar
+              locale={koLocale}
               plugins={[listPlugin]}
               initialView="listWeek"
               events={events}
