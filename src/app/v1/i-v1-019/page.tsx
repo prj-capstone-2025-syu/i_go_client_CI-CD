@@ -10,7 +10,7 @@ export default function Home() {
         <button
           className="hover:opacity-[0.7] cursor-pointer py-[10px] px-[5px] bg-[#01274F] border-[1px] border-[#01274F] rounded-[7px] text-[#fff] text-[15px] tracking-[-0.6px] font-[500]"
           onClick={() => {
-            location.href = "#";
+            location.href = "page.tsx";
           }}
           type="button"
         >
