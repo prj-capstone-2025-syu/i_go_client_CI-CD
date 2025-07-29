@@ -35,9 +35,6 @@ process.env
 
 .env.local
 
-# firebase config
-src/utils/firebase.js
-
 # vercel
 .vercel
 
