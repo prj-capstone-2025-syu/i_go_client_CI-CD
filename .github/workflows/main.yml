@@ -45,8 +45,8 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:${{ github.sha }} .
-          docker save ${{ env.IMAGE_NAME }}:${{ github.sha }} -o frontend-image.tar
+          sudo docker build -t ${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          sudo docker save ${{ env.IMAGE_NAME }}:${{ github.sha }} -o frontend-image.tar
 
       - name: Copy Docker Image to EC2
         uses: appleboy/scp-action@v0.1.4
@@ -65,7 +65,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu/igo
-            docker load -i frontend-image.tar
+            sudo docker load -i frontend-image.tar
             
             # 현재 활성화된 포트 확인
             if ! grep -q "3001" ${{ env.NGINX_TARGET_FILE }}; then
