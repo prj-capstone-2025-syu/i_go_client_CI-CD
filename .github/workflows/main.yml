@@ -86,7 +86,7 @@ jobs:
             echo "Frontend - Active: $ACTIVE_CONTAINER, Deploying: $NEW_CONTAINER to port $NEW_PORT"
             
             # 새 컨테이너 시작
-            docker run -d \
+            sudo docker run -d \
               --name $NEW_CONTAINER \
               -p $NEW_PORT:3000 \
               --restart unless-stopped \
@@ -107,17 +107,17 @@ jobs:
               
               # 기존 컨테이너 정리
               sleep 5
-              if docker ps | grep -q $ACTIVE_CONTAINER; then
-                docker stop $ACTIVE_CONTAINER || true
-                docker rm $ACTIVE_CONTAINER || true
+              if sudo docker ps | grep -q $ACTIVE_CONTAINER; then
+                sudo docker stop $ACTIVE_CONTAINER || true
+                sudo docker rm $ACTIVE_CONTAINER || true
               fi
               
               echo "Frontend Blue-Green deployment completed successfully!"
             else
               echo "Frontend health check failed. Rolling back..."
-              docker stop $NEW_CONTAINER || true
-              docker rm $NEW_CONTAINER || true
+              sudo docker stop $NEW_CONTAINER || true
+              sudo docker rm $NEW_CONTAINER || true
               exit 1
             fi
-            
-            docker image prune -f
+
+            sudo docker image prune -f
