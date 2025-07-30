@@ -1,5 +1,6 @@
 개발서버 : https://i-go.netlify.app/
 
+해당 프로젝트 레포지토리는 `main` 브렌치에 푸시가 되면 Github Action과 Docker를 이용하여 블루-그린 배포를 통해 무중단 배포가 이루어집니다.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
