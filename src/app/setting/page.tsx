@@ -32,15 +32,15 @@ const individualSettingKeys: (keyof Omit<NotificationSettingsDto, 'notifications
   'notifyAiFeature',
 ];
 
-// 초기 상태값 (모든 스위치 off)
+// 초기 상태값 (모든 스위치 On)
 const initialSettings: NotificationSettingsDto = {
-  notificationsEnabled: false,
-  notifyTodaySchedule: false,
-  notifyNextSchedule: false,
-  notifyRoutineProgress: false,
-  notifySupplies: false,
-  notifyUnexpectedEvent: false,
-  notifyAiFeature: false,
+  notificationsEnabled: true,
+  notifyTodaySchedule: true,
+  notifyNextSchedule: true,
+  notifyRoutineProgress: true,
+  notifySupplies: true,
+  notifyUnexpectedEvent: true,
+  notifyAiFeature: true,
 };
 
 export default function SettingPage() {

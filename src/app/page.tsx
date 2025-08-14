@@ -602,7 +602,7 @@ const Home: FC = () => {
                       data-aos-easing="ease-in-out"
                       data-aos-duration="400"
                       data-aos-once="true"
-                      data-aos-delay="200"
+                      data-aos-delay="100"
                       className="flex justify-between items-end w-full mb-[8px] px-[5px]"
                   >
                     <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">
@@ -627,7 +627,7 @@ const Home: FC = () => {
                           data-aos-easing="ease-in-out"
                           data-aos-duration="400"
                           data-aos-once="true"
-                          data-aos-delay="200"
+                          data-aos-delay="150"
                           className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px] text-center"
                       >
                         <p className="text-[#383838] text-center py-2">
@@ -643,7 +643,7 @@ const Home: FC = () => {
                           data-aos-easing="ease-in-out"
                           data-aos-duration="400"
                           data-aos-once="true"
-                          data-aos-delay="200"
+                          data-aos-delay="150"
                           className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]"
                       >
                         <div className="flex justify-between items-center w-full mb-[8px] ">
@@ -970,7 +970,7 @@ const Home: FC = () => {
                       data-aos-easing="ease-in-out"
                       data-aos-duration="400"
                       data-aos-once="true"
-                      data-aos-delay="400"
+                      data-aos-delay="300"
                       className="flex justify-between items-end w-full mb-[8px] px-[5px]"
                   >
                     <p className="text-[#01274F] text-[19px] font-[700] tracking-[-0.4px]">
@@ -1000,7 +1000,7 @@ const Home: FC = () => {
                       data-aos-easing="ease-in-out"
                       data-aos-duration="400"
                       data-aos-once="true"
-                      data-aos-delay="400"
+                      data-aos-delay="350"
                       className="w-full bg-[#fff] p-[15px] rounded-[6px] shadow-[0px_0px_5px_rgba(0,0,0,0.2)] mb-[22px]"
                   >
                     {isLoading ? (
