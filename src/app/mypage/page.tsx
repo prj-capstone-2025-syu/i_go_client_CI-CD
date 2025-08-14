@@ -83,13 +83,32 @@ export default function Home() {
     }, [loading]);
 
     const formatDateTime = (dateTimeString: string) => {
-        const date = new Date(dateTimeString);
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        return `${year}-${month}-${day} ${hours}:${minutes}`;
+        if (!dateTimeString) return '-';
+        // 백엔드 예시: 2025-08-13 16:31:00.854625 (공백 + 마이크로초, timezone 미포함)
+        // Safari 호환 위해 'YYYY-MM-DDTHH:MM:SS.sssZ' 형태로 가공
+        try {
+            let normalized = dateTimeString.trim();
+            // 공백 구분자를 T로 교체
+            normalized = normalized.replace(' ', 'T');
+            // 마이크로초(6자리) -> 밀리초(3자리)로 축소
+            normalized = normalized.replace(/\.(\d{3})(\d{3,})$/, '.$1');
+            // timezone 없으면 로컬로 파싱 -> 명확히 하려면 'Z' 붙여 UTC로 볼 수도 있음
+            // 여기서는 그대로 두되 파싱 실패시 UTC 가정 시도
+            let date = new Date(normalized);
+            if (isNaN(date.getTime())) {
+                // 뒤에 Z 추가 재시도
+                date = new Date(normalized + 'Z');
+            }
+            if (isNaN(date.getTime())) return '-';
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}`;
+        } catch (e) {
+            return '-';
+        }
     };
 
     return (
