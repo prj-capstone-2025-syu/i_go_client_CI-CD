@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import NavBar from "@/components/common/topNav";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from "@fullcalendar/list";
 import koLocale from "@fullcalendar/core/locales/ko";
-import { EventClickArg, EventInput } from '@fullcalendar/core'; // EventClickArg 및 EventInput 추가
+import { EventClickArg, EventInput } from '@fullcalendar/core'; // EventClickArg 및 EventInput
 import { getSchedules } from "@/api/scheduleApi";
 import { useNotification } from "@/components/common/NotificationContext";{/*버튼주석*/}
 
@@ -35,6 +35,9 @@ export default function Calendar() {
   const [error, setError] = useState<Error | null>(null); // 에러 상태 타입 명시
   const [selectedEvent, setSelectedEvent] = useState<SelectedEventType | null>(null); // selectedEvent 타입 명시
   const { routineNotificationOpen } = useNotification();{/*버튼주석*/}
+  
+  // FullCalendar 참조를 위한 래퍼런스
+  const listCalendarRef = useRef<FullCalendar>(null);
 
   // 일정 데이터 가져오기
   const fetchSchedules = async () => {
@@ -99,6 +102,7 @@ export default function Calendar() {
   // 이벤트 클릭 핸들러
   const handleEventClick = (info: EventClickArg) => { // EventClickArg 타입 사용
     console.log("선택된 이벤트:", info.event);
+    
     // 이벤트 정보 저장
     setSelectedEvent({
       id: info.event.id,
@@ -106,6 +110,12 @@ export default function Calendar() {
       start: info.event.start,
       end: info.event.end
     });
+
+    // 하단 주간 리스트를 해당 일정의 날짜로 이동
+    if (info.event.start && listCalendarRef.current) {
+      const calendarApi = listCalendarRef.current.getApi();
+      calendarApi.gotoDate(info.event.start);
+    }
   };
 
   // 수정 페이지로 이동
@@ -124,7 +134,7 @@ export default function Calendar() {
 
   return (
       <div className="flex flex-col w-full h-full">
-        {/* 툴바 스타일 개선 추가 */}
+        {/* 툴바 스타일 개선 */}
         <style jsx global>{`
           .fc-toolbar-title {
             font-size: 18px !important;
@@ -157,7 +167,7 @@ export default function Calendar() {
           }
         `}</style>
 
-        <NavBar title="캘린더" link="#" />
+        <NavBar title="캘린더" link="/setting" />
 
         <div className={`z-[999] absolute bottom-[0px] left-[0px] grid grid-cols-2 w-full bg-[#fff] p-[12px] gap-[12px] ${
             routineNotificationOpen ? 'filter blur-sm pointer-events-none' : ''
@@ -184,10 +194,9 @@ export default function Calendar() {
 
         <div className="w-full max-h-full overflow-y-auto">
           <div className="w-full max-h-full overflow-y-auto">
-            {/* 레이아웃 구조 개선: gap-y-[20px] 추가, padding 조정 */}
             <div className="flex flex-col gap-y-[20px] p-[15px] h-full">
               <FullCalendar
-                  locale={koLocale} // 한국어 로케일 추가
+                  locale={koLocale} // 한국어 로케일
                   plugins={[dayGridPlugin]}
                   initialView="dayGridMonth"
                   headerToolbar={{
@@ -198,14 +207,15 @@ export default function Calendar() {
                   events={events}
                   eventClick={handleEventClick}
                   eventClassNames={(arg) => {
-                    // 선택된 이벤트에 CSS 클래스 추가
+                    // 선택된 이벤트에 CSS 클래스
                     return selectedEvent && selectedEvent.id === arg.event.id ?
                         'selected-event' : '';
                   }}
               />
 
               <FullCalendar
-                  locale={koLocale} // 한국어 로케일 추가
+                  ref={listCalendarRef}
+                  locale={koLocale} // 한국어 로케일
                   plugins={[listPlugin]}
                   initialView="listWeek"
                   headerToolbar={{

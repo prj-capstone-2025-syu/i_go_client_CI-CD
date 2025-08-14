@@ -6,11 +6,11 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# 선호하는 패키지 매니저를 기반으로 의존성 설치
+# 의존성 설치
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-# 필요한 경우에만 소스 코드 재빌드
+# 소스 코드 재빌드
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules

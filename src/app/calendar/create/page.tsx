@@ -366,7 +366,7 @@ export default function CreateSchedule() {
   return (
       <div className="flex flex-col w-full h-full">
         <NavBar title="일정 등록" link="/mypage"></NavBar>
-        <KakaoMapScript /> {/* 명시적으로 컴포넌트 추가 */}
+        <KakaoMapScript /> {/* 명시적으로 컴포넌트 추가 -> 이거 해야 로딩이 됨 */}
         <div className="w-full max-h-full overflow-y-auto">
           <div className="flex flex-col items-center justify-start p-[20px] w-full h-auto">
             <div className="w-full shadow-[0px_0px_10px_rgba(0,0,0,0.2)] bg-[#fff] p-[20px]">

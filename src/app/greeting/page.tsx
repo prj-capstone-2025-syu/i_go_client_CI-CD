@@ -181,13 +181,13 @@ const ChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isFlowRunning, setIsFlowRunning] = useState(false);
 
-  // 🔧 핵심 수정사항: useRef를 사용하여 온보딩 흐름 중복 실행 방지
+  // useRef를 사용하여 온보딩 흐름 중복 실행 방지
   const onboardingFlowHasRun = useRef(false);
 
   const aiPartner = { name: "아이고 AI", avatarUrl: "/logo.png" };
   const currentUser = { name: "나", avatarUrl: "..." };
 
-  // 🔧 로그인 상태 확인 및 리다이렉트 로직 추가
+  // 로그인 상태 확인 및 리다이렉트
   useEffect(() => {
     // 로그인 상태 확인
     if (isLoggedIn()) {
@@ -203,14 +203,14 @@ const ChatInterface = () => {
     }
   }, [router]);
 
-  // 범용 메시지 추가 함수
+  // 범용 메시지 
   const addMessage = (
       text: string,
       sender: any,
       options: Partial<Message> = {}
   ) => {
     const newMessage: Message = {
-      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // 🔧 ID 생성 개선
+      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       text,
       sender,
       isSenderMe: sender === currentUser,
@@ -224,7 +224,7 @@ const ChatInterface = () => {
     setMessages((prev) => [...prev, newMessage]);
   };
 
-  // 🔧 핵심 수정사항: useEffect에 중복 실행 방지 로직 추가
+  //useEffect에 중복 실행 방지 로직
   useEffect(() => {
     // 로그인된 상태라면 온보딩 흐름을 실행하지 않음
     if (isLoggedIn()) return;
@@ -236,7 +236,7 @@ const ChatInterface = () => {
 
     const runOnboardingFlow = async () => {
       setIsFlowRunning(true);
-      onboardingFlowHasRun.current = true; // 🔧 온보딩 흐름 실행됨으로 표시
+      onboardingFlowHasRun.current = true; // 온보딩 흐름 실행됨으로 표시
 
       await sleep(1000);
       addMessage("아이고... 또 지각하셨나요? 🐢", aiPartner);

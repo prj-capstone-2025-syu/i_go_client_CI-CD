@@ -117,7 +117,7 @@ export default function MypageEdit() {
   if (loading) {
     return (
         <div className="flex flex-col w-full h-full">
-          <NavBarMain link="setting"></NavBarMain>
+          <NavBarMain link="/setting"></NavBarMain>
           <div className="flex justify-center items-center w-full h-full p-[20px]">
             <p> </p>
           </div>
@@ -128,10 +128,9 @@ export default function MypageEdit() {
   if (error) {
     return (
         <div className="flex flex-col w-full h-full">
-          <NavBarMain link="setting"></NavBarMain>
+          <NavBarMain link="/setting"></NavBarMain>
           <div className="flex justify-center items-center w-full h-full p-[20px]">
             <p className="text-red-500">{error}</p>
-            {/* 로그인 페이지로 이동하는 버튼 등을 추가할 수 있습니다. */}
             <button onClick={() => router.push('/login')} className="mt-4 p-2 bg-blue-500 text-white rounded">
               로그인 페이지로 이동
             </button>
@@ -142,7 +141,7 @@ export default function MypageEdit() {
 
   return (
       <div className="flex flex-col w-full h-full">
-        <NavBarMain link="setting"></NavBarMain>
+        <NavBarMain link="/setting"></NavBarMain>
         <div className="w-full max-h-full overflow-y-auto">
           <div className="flex flex-col items-center justify-start p-[20px] w-full h-auto gap-y-[15px]">
             {/* 사용자 정보 표시 */}
@@ -170,10 +169,10 @@ export default function MypageEdit() {
               </div>
             </div>
 
-            {/* IGO 설정 링크 - 기존 유지 */}
+            {/* IGO 설정 링크 */}
             <Link
                 className="hover:opacity-[0.7] border-[1px] p-[20px] border-[#dfdfdf] rounded-[6px] bg-[#fff] w-full shadow-sm flex justify-between items-center transition-all duration-700 ease-in-out"
-                href="/setting" // 실제 설정 페이지 경로로 수정 필요
+                href="/setting"
                 style={{
                   opacity: showIgoSettings ? 1 : 0,
                   transform: showIgoSettings ? 'translateY(0)' : 'translateY(10px)'

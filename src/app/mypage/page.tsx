@@ -30,7 +30,7 @@ export default function Home() {
     const [notificationsLoading, setNotificationsLoading] = useState(true);
     const [notificationsError, setNotificationsError] = useState<string | null>(null);
 
-    // 애니메이션 효과를 위한 상태 추가
+    // 애니메이션 효과를 위한 상태
     const [showUserInfo, setShowUserInfo] = useState(false);
     const [showRoutineLink, setShowRoutineLink] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
@@ -94,7 +94,7 @@ export default function Home() {
 
     return (
         <div className="flex flex-col w-full h-full">
-            <NavBarMain link="setting"></NavBarMain>
+            <NavBarMain link="/setting"></NavBarMain>
             <div className="w-full max-h-full overflow-y-auto">
                 <div className="flex flex-col items-center justify-start p-[20px] w-full h-auto gap-y-[15px]">
                     {loading ? (
@@ -190,7 +190,7 @@ export default function Home() {
                                     }}
                                 >
                                     <p className="w-full text-[#383838] text-[13px] line-clamp-2 pr-[15px]">
-                                        {notification.title || notification.body || "알림 내용 없음"}
+                                        {notification.body || "알림 내용 없음"}
                                     </p>
                                     <div className="flex flex-row gap-x-[3px] md:gap-x-[15px] xl:gap-x-[65px]">
                                         <p className="w-full text-[#777] text-[13px] pr-[5px] min-w-[68px] text-left md:text-center whitespace-nowrap">

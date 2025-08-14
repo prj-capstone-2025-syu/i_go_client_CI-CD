@@ -11,7 +11,7 @@ import { getRoutineById } from "@/api/routineApi";
 import { sendFCMTokenToServer } from "@/api/userApi";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { app } from "@/utils/firebase";
-import { calculateAllTransportTimes } from "@/api/transportApi"; // 이동시간 API 추가
+import { calculateAllTransportTimes } from "@/api/transportApi"; // 이동시간 API
 
 // 타입 정의
 interface ScheduleType {
@@ -25,11 +25,11 @@ interface ScheduleType {
   category: string;
   routineId: number | null;
   status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
-  startX?: number | null; // 출발지 X 좌표 추가
-  startY?: number | null; // 출발지 Y 좌표 추가
-  destinationX?: number | null; // 목적지 X 좌표 추가
-  destinationY?: number | null; // 목적지 Y 좌표 추가
-  startLocation?: string | null; // 출발지 명칭 추가
+  startX?: number | null; // 출발지 X 좌표
+  startY?: number | null; // 출발지 Y 좌표
+  destinationX?: number | null; // 목적지 X 좌표
+  destinationY?: number | null; // 목적지 Y 좌표
+  startLocation?: string | null; // 출발지 명칭
 }
 
 interface RoutineInfo {
@@ -53,7 +53,7 @@ const Home: FC = () => {
   const [upcomingSchedules, setUpcomingSchedules] = useState<ScheduleType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isTokenChecked, setIsTokenChecked] = useState(false); // 토큰 확인 완료 상태 추가
+  const [isTokenChecked, setIsTokenChecked] = useState(false); // 토큰 확인 완료 상태
   const [nearestSchedule, setNearestSchedule] = useState<ScheduleType | null>(null);
   const [inProgressSchedule, setInProgressSchedule] = useState<ScheduleType | null>(null);
   const [scheduleStatusInfo, setScheduleStatusInfo] = useState<{ text: string; color: string; fontWeight?: string } | null>(null);
@@ -62,7 +62,7 @@ const Home: FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   // 스케줄 데이터 준비 상태를 관리하는 새로운 state
   const [scheduleDataReady, setScheduleDataReady] = useState(false);
-  // 이동시간 정보를 관리하는 state 추가
+  // 이동시간 정보를 관리하는 state
   const [transportTimes, setTransportTimes] = useState<{
     driving: number | null;
     transit: number | null;
@@ -76,14 +76,14 @@ const Home: FC = () => {
   });
   // 이동시간 로딩 상태
   const [isTransportLoading, setIsTransportLoading] = useState(false);
-  // 이동시간 애니메이션을 위한 상태
+  // 이동시간 애니메이션
   const [showTransportTimes, setShowTransportTimes] = useState(false);
-  // 비대면 일정 여부 확인을 위한 상태 추가
+  // 비대면 일정 여부 확인
   const [isRemoteEvent, setIsRemoteEvent] = useState(false);
-  // 위치 정보가 없는지 확인하는 상태 추가
+  // 위치 정보가 없는지 확인
   const [isEmptyLocation, setIsEmptyLocation] = useState(false);
 
-  // 1분마다 자동 리프레시를 위한 상태
+  // 1분마다 자동 리프레시
   const [refreshToken, setRefreshToken] = useState(0);
 
   // 현재 표시할 일정을 결정하는 함수 (진행 중인 일정 > 다가오는 일정 순)
@@ -180,11 +180,8 @@ const Home: FC = () => {
             // 진행 중인 일정 설정
             setInProgressSchedule(inProgressData);
 
+            setScheduleDataReady(true);
             setIsLoading(false);
-            // 데이터 로딩이 완료되고, 필요한 정보가 모두 준비되었을 때 준비 상태를 true로 설정
-            setTimeout(() => {
-              setScheduleDataReady(true);
-            }, 100); // 약간의 지연을 두어 상태 업데이트 순서 보장
           })
           .catch(error => {
             setIsLoading(false);
@@ -520,7 +517,7 @@ const Home: FC = () => {
     }
   };
 
-  // 이동 시간 포맷팅 함수 추가
+  // 이동 시간 포맷팅 함수
   const formatTransportTime = (minutes: number | null): string => {
     if (minutes === null) return "-";
     if (minutes < 60) {
@@ -559,7 +556,7 @@ const Home: FC = () => {
   return (
       <div className="flex flex-col w-full h-full">
         {/* NavBarMain은 항상 표시되도록 수정 */}
-        <NavBarMain link="/mypage"></NavBarMain>
+        <NavBarMain link="/setting"></NavBarMain>
 
         {(!isTokenChecked || !isAuthenticated) ? (
             // 토큰 확인 중이거나 인증되지 않은 경우 메인 콘텐츠 표시하지 않음

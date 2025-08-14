@@ -6,7 +6,7 @@ import { getScheduleById, deleteSchedule } from "@/api/scheduleApi";
 import { getRoutineById } from "@/api/routineApi";
 import { format } from "date-fns";
 import ConfirmPopup from "@/components/common/ConfirmPopup";
-import { calculateAllTransportTimes } from "@/api/transportApi"; // 이동시간 API 추가
+import { calculateAllTransportTimes } from "@/api/transportApi"; // 이동시간 API
 
 // 타입 정의
 interface ScheduleType {
@@ -53,14 +53,14 @@ function ScheduleDetailContent() {
   const [error, setError] = useState<string | null>(null);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [keyword, setKeyword] = useState(""); // 검색어 상태 변수 추가
+  const [keyword, setKeyword] = useState(""); // 검색어 상태 변수
   const [isTransportLoading, setIsTransportLoading] = useState(false); // 이동시간 로딩 상태
   const [showTransportTimes, setShowTransportTimes] = useState(false); // 이동시간 애니메이션을 위한 상태
-  // 비대면 일정 여부 상태 추가
+  // 비대면 일정 여부 상태
   const [isRemoteEvent, setIsRemoteEvent] = useState(false);
-  // 위치 정보가 없는지 확인하는 상태 추가
+  // 위치 정보가 없는지 상태확인
   const [isEmptyLocation, setIsEmptyLocation] = useState(false);
-  // 이동시간 정보를 관리하는 state 추가
+  // 이동시간 정보를 관리하는 state
   const [transportTimes, setTransportTimes] = useState<{
     driving: number | null;
     transit: number | null;
@@ -179,7 +179,7 @@ function ScheduleDetailContent() {
             startY = schedule.startY;
             console.log("🚦 [DEBUG] 일정의 출발지 좌표 사용:", startX, startY);
           } else {
-            // 사용자 현재 위치 사용 (허용한 경우)
+            // 사용자 현재 위치 사용 (허용한 경우) -> 추후에 사용자한테 물어보고 DB에 저장하는 기능 추가 하던가 해야함
             try {
               console.log("🚦 [DEBUG] 사용자 위치 정보 요청 중...");
               const position = await new Promise<GeolocationPosition>((resolve, reject) => {
@@ -262,7 +262,7 @@ function ScheduleDetailContent() {
     }
   }, [schedule, isLoading, isRemoteEvent, isEmptyLocation]);
 
-  // 이동 시간 포맷팅 함수 추가
+  // 이동 시간 포맷팅 함수
   const formatTransportTime = (minutes: number | null): string => {
     if (minutes === null) return "-";
     if (minutes < 60) {

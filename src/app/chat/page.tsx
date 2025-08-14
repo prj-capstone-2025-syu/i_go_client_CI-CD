@@ -710,7 +710,7 @@ export default function ChatPage() {
           }
       >
         <div className="flex flex-col w-full h-full">
-          <NavBarMain link="/mypage" />
+          <NavBarMain link="/setting" />
           <ChatPageContent />
         </div>
       </Suspense>

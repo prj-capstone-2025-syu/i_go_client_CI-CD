@@ -441,7 +441,7 @@ function EditScheduleContent() {
   return (
       <div className="flex flex-col w-full h-full">
         <NavBar title="일정 수정" link="/calendar"></NavBar>
-        <KakaoMapScript /> {/* 명시적으로 컴포넌트 추가 */}
+        <KakaoMapScript /> {/* 명시적으로 컴포넌트 추가해야 로드가 됨 */}
         <div className="w-full max-h-full overflow-y-auto">
           <div className="flex flex-col items-center justify-start p-[20px] w-full h-auto">
             <div

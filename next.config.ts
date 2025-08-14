@@ -9,12 +9,12 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  // devIndicators 설정 추가
+  // devIndicators 설정
   devIndicators: false, // Dev Tools UI 완전히 비활성화
 
   output: "standalone",
 
-  // webpack 설정 추가
+  // webpack 설정
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,

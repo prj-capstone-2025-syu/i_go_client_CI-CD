@@ -55,7 +55,7 @@ function RoutineDetailContent() {
         setError(null);
       } catch (err) {
         console.error("루틴 정보 가져오기 실패:", err);
-        setError("루틴 정보를 불러오는데 실패했습니다");
+        setError("루틴 정보를 불러오는데 실패했습니다.");
       } finally {
         setLoading(false);
       }
