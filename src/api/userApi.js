@@ -1,6 +1,5 @@
 import api from './axiosConfig'; // axiosConfig에서 api 임포트
-import {app} from '@/utils/firebase'; // Firebase 초기화 코드가 있는 파일에서 app을 가져옴
-import { getMessaging, getToken } from "firebase/messaging"; // Firebase 메시징
+
 
 // 현재 사용자 정보 조회
 export const getCurrentUser = async () => {
