@@ -19,23 +19,14 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
     console.log('백그라운드 메시지 수신:', payload);
 
-    // Firebase가 자동으로 알림을 표시하므로 수동으로 표시하지 않음
-    if (payload.notification) {
-        console.log('Firebase가 자동으로 알림을 표시합니다.');
-        // 추가 로직이 필요한 경우에만 여기서 처리
-        return; // 수동 알림 표시 안함
-    }
-
-    // data-only 메시지인 경우에만 수동으로 알림 표시
-    if (payload.data && !payload.notification) {
-        const notificationTitle = payload.data.title || 'IGO 알림';
+    // 'data' 페이로드가 있으면 항상 직접 알림을 생성
+    if (payload.data) {
+        const notificationTitle = payload.data.title || payload.notification?.title || 'IGO 알림';
         const notificationOptions = {
-            body: payload.data.body || '새로운 알림이 있습니다.',
-            icon: '/logo.png',
-            badge: '/logo.png',
-            data: payload.data,
-            tag: 'igo-notification', // 중복 알림 방지
-            renotify: false
+            body: payload.data.body || payload.notification?.body || '새로운 알림이 있습니다.',
+            icon: '/logo.png', // 아이콘 경로 확인 필요
+            badge: '/logo.png', // 뱃지 경로 확인 필요
+            data: payload.data // 가장 중요: 커스텀 데이터를 알림에 포함
         };
 
         return self.registration.showNotification(notificationTitle, notificationOptions);
