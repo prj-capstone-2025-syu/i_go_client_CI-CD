@@ -13,7 +13,7 @@ interface NotificationModalProps {
 const NotificationModal: FC<NotificationModalProps> = ({
   isOpen,
   title,
-  subtitle, // 기본값 제거
+  subtitle,
   onClose,
   actionText = "확인"
 }) => {
@@ -21,18 +21,16 @@ const NotificationModal: FC<NotificationModalProps> = ({
 
   return (
     <>
-      {/* ConfirmPopup과 동일한 배경 스타일 적용 */}
       <div
-        className="fixed z-[99] w-full h-full bg-[rgba(217,217,217,0.85)]"
+        className="fixed inset-0 z-[99] w-full h-full bg-[rgba(217,217,217,0.85)]"
         onClick={onClose}
-      />
+      ></div>
       <div className="fixed left-[50%] top-[55%] translate-x-[-50%] translate-y-[-50%] w-[85%] max-w-[335px] bg-[#fff] p-[20px] pb-[10px] z-[100] rounded-[8px] shadow-md">
-        <p className="text-[18px] text-[#5C5C5C] font-[400] text-center mb-[4px]">
+        <p className="text-[18px] text-[#5C5C5C] font-[400] text-center">
           {title}
         </p>
-        {/* subtitle이 있을 때만 표시 */}
         {subtitle && (
-          <p className="text-[16px] text-[#8C8C8C] font-[400] text-center whitespace-pre-line">
+          <p className="text-[16px] text-[#8C8C8C] font-[400] text-center whitespace-pre-line mt-[4px]">
             {subtitle}
           </p>
         )}

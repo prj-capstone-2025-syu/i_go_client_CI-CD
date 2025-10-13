@@ -11,6 +11,7 @@ export type NotificationType =
   | 'SCHEDULE_START'
   | 'ROUTINE_ITEM_START'
   | 'SUPPLIES_REMINDER'
+  | 'SEVERE_WEATHER_ALERT'
   | 'GENERIC';
 
 export interface WeatherInfo {
@@ -153,6 +154,34 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     [showRoutineNotification]
   );
 
+  // 악천후 알림 처리
+  const handleSevereWeatherAlert = useCallback(
+    (data: Record<string, string>, _title: string, _body: string) => {
+      // 악천후 알림 제목과 내용 포맷팅
+      const weatherDesc = data.weatherDescription || '악천후';
+      const newStartTime = data.newStartTime || '';
+
+      // 시간 포맷팅
+      let formattedTime = '';
+      try {
+        const date = new Date(newStartTime);
+        formattedTime = date.toLocaleTimeString('ko-KR', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        });
+      } catch (_error) {
+        formattedTime = newStartTime;
+      }
+
+      const alertTitle = '⚠️ 악천후 알림';
+      const alertBody = `${weatherDesc}이(가) 예상됩니다.\n\n날씨 때문에 늦을 수 있으니\n출발 시간을 30분 앞당겼습니다.\n\n새로운 출발 시간: ${formattedTime}`;
+
+      showRoutineNotification(alertTitle, alertBody, 'SEVERE_WEATHER_ALERT');
+    },
+    [showRoutineNotification]
+  );
+
   // Android FCM 토큰 처리를 위한 함수
   const sendAndroidFCMTokenToServer = useCallback(async (token: string) => {
     try {
@@ -258,6 +287,11 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
                   handleSuppliesReminder(payload.data, title || '준비물 알림', body || '');
                   break;
 
+                case 'SEVERE_WEATHER_ALERT':
+                  // 악천후 알림
+                  handleSevereWeatherAlert(payload.data, title || '악천후 알림', body || '');
+                  break;
+
                 default:
                   // 일반 알림
                   showRoutineNotification(title || '알림', body || '새로운 알림이 있습니다.', 'GENERIC');
@@ -283,11 +317,24 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     setupFCMMessageListener();
 
+    // Service Worker로부터 메시지 수신 (백그라운드 알림 클릭 시)
+    const handleServiceWorkerMessage = (event: MessageEvent) => {
+      console.log('Service Worker 메시지 수신:', event.data);
+
+      if (event.data.type === 'SHOW_SEVERE_WEATHER_MODAL' && event.data.data) {
+        const data = event.data.data;
+        handleSevereWeatherAlert(data, '악천후 알림', '');
+      }
+    };
+
+    navigator.serviceWorker?.addEventListener('message', handleServiceWorkerMessage);
+
     // cleanup function
     return () => {
       if (unsubscribe) {
         unsubscribe();
       }
+      navigator.serviceWorker?.removeEventListener('message', handleServiceWorkerMessage);
     };
   }, [
     hasToken,
@@ -296,6 +343,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     handleScheduleStart,
     handleRoutineItemStart,
     handleSuppliesReminder,
+    handleSevereWeatherAlert,
     showRoutineNotification
   ]);
 
