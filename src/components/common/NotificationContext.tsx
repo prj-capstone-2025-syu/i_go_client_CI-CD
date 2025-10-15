@@ -155,14 +155,26 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
   );
 
   // 악천후 알림 처리
+  // 백엔드 전송 데이터 구조:
+  // {
+  //   type: "SEVERE_WEATHER_ALERT",
+  //   scheduleId: "일정 ID",
+  //   weatherDescription: "비" | "눈" | "폭우" 등,
+  //   newStartTime: "2025-10-14T09:30:00" (ISO 형식, 30분 앞당긴 시간),
+  //   isSevereWeather: "true",
+  //   severeWeatherDescription: "비",
+  //   originalStartTime: "2025-10-14T10:00:00",
+  //   originalEndTime: "2025-10-14T11:00:00",
+  //   newEndTime: "2025-10-14T10:30:00"
+  // }
   const handleSevereWeatherAlert = useCallback(
-    (data: Record<string, string>, _title: string, _body: string) => {
-      // 악천후 알림 제목과 내용 포맷팅
-      const weatherDesc = data.weatherDescription || '악천후';
+    (data: Record<string, string>) => {
+      const weatherDesc = data.weatherDescription || data.severeWeatherDescription || '악천후';
       const newStartTime = data.newStartTime || '';
+      const scheduleId = data.scheduleId;
 
-      // 시간 포맷팅
-      let formattedTime = '';
+      // 시간 포맷팅 (ISO 형식 -> 한국어 시간 형식)
+      let formattedTime: string;
       try {
         const date = new Date(newStartTime);
         formattedTime = date.toLocaleTimeString('ko-KR', {
@@ -170,13 +182,15 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
           minute: '2-digit',
           hour12: true
         });
-      } catch (_error) {
+      } catch {
+        // 파싱 실패 시 원본 시간 사용
         formattedTime = newStartTime;
       }
 
       const alertTitle = '⚠️ 악천후 알림';
       const alertBody = `${weatherDesc}이(가) 예상됩니다.\n\n날씨 때문에 늦을 수 있으니\n출발 시간을 30분 앞당겼습니다.\n\n새로운 출발 시간: ${formattedTime}`;
 
+      console.log('악천후 알림 표시:', { scheduleId, weatherDesc, newStartTime, formattedTime });
       showRoutineNotification(alertTitle, alertBody, 'SEVERE_WEATHER_ALERT');
     },
     [showRoutineNotification]
@@ -288,8 +302,8 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
                   break;
 
                 case 'SEVERE_WEATHER_ALERT':
-                  // 악천후 알림
-                  handleSevereWeatherAlert(payload.data, title || '악천후 알림', body || '');
+                  // 악천후 알림 (data만 전달)
+                  handleSevereWeatherAlert(payload.data);
                   break;
 
                 default:
@@ -323,7 +337,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
       if (event.data.type === 'SHOW_SEVERE_WEATHER_MODAL' && event.data.data) {
         const data = event.data.data;
-        handleSevereWeatherAlert(data, '악천후 알림', '');
+        handleSevereWeatherAlert(data);
       }
     };
 
